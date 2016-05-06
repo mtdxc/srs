@@ -31,10 +31,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include <string>
 
-// for srs-librtmp, @see https://github.com/ossrs/srs/issues/213
-#ifndef _WIN32
-#include <sys/uio.h>
-#endif
 
 /**
 * file writer, to write to file.

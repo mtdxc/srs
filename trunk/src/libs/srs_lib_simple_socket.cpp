@@ -60,6 +60,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     #include <netinet/in.h>
     #include <arpa/inet.h>
     #include <sys/uio.h>
+#else
+#include <winsock.h>
 #endif
 
 #include <sys/types.h>

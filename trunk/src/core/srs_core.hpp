@@ -84,8 +84,72 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     #define __STDC_FORMAT_MACROS
 #endif
 
+/*************************************************************
+**************************************************************
+* Windows SRS-LIBRTMP solution
+**************************************************************
+*************************************************************/
 // for srs-librtmp, @see https://github.com/ossrs/srs/issues/213
-#ifndef _WIN32
+#ifdef _WIN32
+#include <stdint.h>
+typedef uint32_t u_int32_t;
+typedef uint16_t u_int16_t;
+typedef uint8_t u_int8_t;
+typedef size_t ssize_t;
+#define PRId64 "lld"
+
+// for time.
+//#define _CRT_SECURE_NO_WARNINGS
+#include <time.h>
+int gettimeofday(struct timeval* tv, struct timezone* tz);
+
+// for inet helpers.
+typedef int socklen_t;
+const char *inet_ntop(int af, const void *src, char *dst, socklen_t size);
+
+// for mkdir().
+#include <direct.h>
+
+// for open().
+typedef int mode_t;
+#define S_IRUSR 0
+#define S_IWUSR 0
+#define S_IXUSR 0
+#define S_IRGRP 0
+#define S_IWGRP 0
+#define S_IXGRP 0
+#define S_IROTH 0
+#define S_IXOTH 0
+
+// for pid.
+typedef int pid_t;
+pid_t getpid(void);
+
+// for socket.
+ssize_t writev(int fd, const struct iovec *iov, int iovcnt);
+int socket_setup();
+int socket_cleanup();
+
+/* for file seek.
+#include <io.h>
+#include <fcntl.h>
+#define open _open
+#define close _close
+#define lseek _lseek
+#define write _write
+#define read _read
+*/
+struct iovec
+{
+  void *iov_base;
+  size_t iov_len;
+};
+#define snprintf _snprintf
+#include <time.h>
+typedef int64_t useconds_t;
+int usleep(useconds_t usec);
+#else
+#include <sys/uio.h>
 #include <inttypes.h>
 #endif
 
@@ -127,17 +191,26 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         className(const className&); \
         className& operator= (const className&)
 
+#ifdef _WIN32
+#ifdef SRS_EXPORT
+#define SRS_API __declspec(dllexport)
+#else
+#define SRS_API __declspec(dllimport)
+#endif
+#define __i386__
+#endif
+
 /**
- * important check for st(state-threads),
- * only support the following cpus:
- *      1. i386/amd64/x86_64
- *      2. arm, glibc <= 2.15
- */
+* important check for st(state-threads),
+* only support the following cpus:
+*      1. i386/amd64/x86_64
+*      2. arm, glibc <= 2.15
+*/
 #if !defined(__amd64__) && !defined(__x86_64__) && !defined(__i386__) && !defined(__arm__)
-    #error "only support i386/amd64/x86_64/arm cpu"
+#error "only support i386/amd64/x86_64/arm cpu"
 #endif
 #if defined(__arm__) && (__GLIBC__ != 2 || __GLIBC_MINOR__ > 15)
-    #error "for arm, only support glibc <= 2.15"
+#error "for arm, only support glibc <= 2.15"
 #endif
 
 #endif

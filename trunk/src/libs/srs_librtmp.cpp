@@ -28,6 +28,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // for srs-librtmp, @see https://github.com/ossrs/srs/issues/213
 #ifndef _WIN32
 #include <sys/time.h>
+#else
+#include <windows.h>
 #endif
 
 #include <string>

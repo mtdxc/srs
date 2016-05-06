@@ -31,9 +31,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <srs_core.hpp>
 
 // for srs-librtmp, @see https://github.com/ossrs/srs/issues/213
-#ifndef _WIN32
+#ifndef ERROR_SUCCESS
 #define ERROR_SUCCESS                       0
-#endif
+#endif // !ERROR_SUCCESS
+
+
 
 ///////////////////////////////////////////////////////
 // system error.
