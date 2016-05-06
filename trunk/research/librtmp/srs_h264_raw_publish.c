@@ -26,14 +26,14 @@ gcc srs_h264_raw_publish.c ../../objs/lib/srs_librtmp.a -g -O0 -lstdc++ -o srs_h
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
+//#include <unistd.h>
 
 // for open h264 raw file.
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
        
-#include "../../objs/include/srs_librtmp.h"
+#include "srs_librtmp.hpp"
 
 int read_h264_frame(char* data, int size, char** pp, int* pnb_start_code, int fps,
     char** frame, int* frame_size, int* dts, int* pts)
@@ -92,11 +92,11 @@ int main(int argc, char** argv)
         printf("See: https://github.com/ossrs/srs/issues/66\n");
         exit(-1);
     }
-    
+    srs_rtmp_t rtmp = NULL;
     const char* raw_file = argv[1];
     const char* rtmp_url = argv[2];
     srs_human_trace("raw_file=%s, rtmp_url=%s", raw_file, rtmp_url);
-    
+    char* h264_raw = NULL;
     // open file
     int raw_fd = open(raw_file, O_RDONLY);
     if (raw_fd < 0) {
@@ -111,7 +111,7 @@ int main(int argc, char** argv)
     }
     srs_human_trace("read entirely h264 raw file, size=%dKB", (int)(file_size / 1024));
     
-    char* h264_raw = (char*)malloc(file_size);
+    h264_raw = (char*)malloc(file_size);
     if (!h264_raw) {
         srs_human_trace("alloc raw buffer failed for file %s.", raw_file);
         goto rtmp_destroy;
@@ -126,7 +126,7 @@ int main(int argc, char** argv)
     }
     
     // connect rtmp context
-    srs_rtmp_t rtmp = srs_rtmp_create(rtmp_url);
+    rtmp = srs_rtmp_create(rtmp_url);
     
     if (srs_rtmp_handshake(rtmp) != 0) {
         srs_human_trace("simple handshake failed.");

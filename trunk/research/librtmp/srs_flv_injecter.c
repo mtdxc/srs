@@ -27,13 +27,13 @@ gcc srs_flv_injecter.c ../../objs/lib/srs_librtmp.a -g -O0 -lstdc++ -o srs_flv_i
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
+//#include <unistd.h>
 
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#include "../../objs/include/srs_librtmp.h"
+#include "srs_librtmp.hpp"
 
 #define ERROR_INJECTED 10000
 
@@ -89,7 +89,11 @@ int main(int argc, char** argv)
     srs_flv_close(oc);
     
     if (ret != 0) {
+#ifdef _WIN32
+        _unlink(tmp_file);
+#else
         unlink(tmp_file);
+#endif
         if (ret == ERROR_INJECTED) {
             ret = 0;
             srs_human_trace("file already injected.");

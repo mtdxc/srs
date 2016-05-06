@@ -98,17 +98,22 @@ typedef uint8_t u_int8_t;
 typedef size_t ssize_t;
 #define PRId64 "lld"
 
-// for time.
 //#define _CRT_SECURE_NO_WARNINGS
+// for mkdir().
+#include <direct.h>
+// for time.
 #include <time.h>
+#ifdef __cplusplus
+extern "C"{
+#endif
+
+typedef int64_t useconds_t;
+int usleep(useconds_t usec);
 int gettimeofday(struct timeval* tv, struct timezone* tz);
 
 // for inet helpers.
 typedef int socklen_t;
 const char *inet_ntop(int af, const void *src, char *dst, socklen_t size);
-
-// for mkdir().
-#include <direct.h>
 
 // for open().
 typedef int mode_t;
@@ -129,6 +134,9 @@ pid_t getpid(void);
 ssize_t writev(int fd, const struct iovec *iov, int iovcnt);
 int socket_setup();
 int socket_cleanup();
+#ifdef __cplusplus
+}
+#endif
 
 /* for file seek.
 #include <io.h>
@@ -145,9 +153,7 @@ struct iovec
   size_t iov_len;
 };
 #define snprintf _snprintf
-#include <time.h>
-typedef int64_t useconds_t;
-int usleep(useconds_t usec);
+
 #else
 #include <sys/uio.h>
 #include <inttypes.h>

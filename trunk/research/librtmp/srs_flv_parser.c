@@ -27,13 +27,13 @@ gcc srs_ingest_flv.c ../../objs/lib/srs_librtmp.a -g -O0 -lstdc++ -o srs_ingest_
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <unistd.h>
+//#include <unistd.h>
 
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#include "../../objs/include/srs_librtmp.h"
+#include "srs_librtmp.hpp"
 
 int parse_flv(srs_flv_t flv);
 int main(int argc, char** argv)

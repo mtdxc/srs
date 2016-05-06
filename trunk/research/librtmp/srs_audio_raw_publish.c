@@ -26,14 +26,14 @@ gcc srs_audio_raw_publish.c ../../objs/lib/srs_librtmp.a -g -O0 -lstdc++ -o srs_
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
+//#include <unistd.h>
 
 // for open audio raw file.
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
        
-#include "../../objs/include/srs_librtmp.h"
+#include "srs_librtmp.hpp"
 
 // https://github.com/ossrs/srs/issues/212#issuecomment-63648892
 // allspace:
@@ -80,11 +80,11 @@ int main(int argc, char** argv)
         printf("See: https://github.com/ossrs/srs/issues/212\n");
         exit(-1);
     }
-    
+    srs_rtmp_t rtmp = NULL;
     const char* raw_file = argv[1];
     const char* rtmp_url = argv[2];
     srs_human_trace("raw_file=%s, rtmp_url=%s", raw_file, rtmp_url);
-    
+    char* audio_raw = NULL;
     // open file
     int raw_fd = open(raw_file, O_RDONLY);
     if (raw_fd < 0) {
@@ -99,7 +99,7 @@ int main(int argc, char** argv)
     }
     srs_human_trace("read entirely audio raw file, size=%dKB", (int)(file_size / 1024));
     
-    char* audio_raw = (char*)malloc(file_size);
+    audio_raw = (char*)malloc(file_size);
     if (!audio_raw) {
         srs_human_trace("alloc raw buffer failed for file %s.", raw_file);
         goto rtmp_destroy;
@@ -114,7 +114,7 @@ int main(int argc, char** argv)
     }
     
     // connect rtmp context
-    srs_rtmp_t rtmp = srs_rtmp_create(rtmp_url);
+    rtmp = srs_rtmp_create(rtmp_url);
     
     if (srs_rtmp_handshake(rtmp) != 0) {
         srs_human_trace("simple handshake failed.");
