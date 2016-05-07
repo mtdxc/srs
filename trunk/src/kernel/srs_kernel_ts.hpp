@@ -1653,6 +1653,7 @@ public:
      * @param fw the writer to use for ts encoder, user must free it.
      */
     virtual int initialize(SrsFileWriter* fw);
+    virtual int initialize(SrsFileWriter* fw, const char* path);
 public:
     /**
     * write audio/video packet.

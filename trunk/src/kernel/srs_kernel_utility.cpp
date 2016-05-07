@@ -171,7 +171,8 @@ string srs_dns_resolve(string host)
     char ipv4[16];
     memset(ipv4, 0, sizeof(ipv4));
     for (int i = 0; i < answer->h_length; i++) {
-        inet_ntop(AF_INET, answer->h_addr_list[i], ipv4, sizeof(ipv4));
+        strcpy(ipv4, inet_ntoa(*(in_addr*) answer->h_addr_list[i]));
+        //inet_ntop(AF_INET, answer->h_addr_list[i], ipv4, sizeof(ipv4));
         break;
     }
     

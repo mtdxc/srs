@@ -43,7 +43,7 @@ class SrsStream
 private:
     // current position at bytes.
     char* p;
-    // the bytes data for stream to read or write.
+    // the bytes data for stream to read or write.(begin position)
     char* bytes;
     // the total number of bytes.
     int nb_bytes;

@@ -92,6 +92,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // for srs-librtmp, @see https://github.com/ossrs/srs/issues/213
 #ifdef _WIN32
 #include <stdint.h>
+typedef uint64_t u_int64_t;
 typedef uint32_t u_int32_t;
 typedef uint16_t u_int16_t;
 typedef uint8_t u_int8_t;
@@ -103,6 +104,7 @@ typedef size_t ssize_t;
 #include <direct.h>
 // for time.
 #include <time.h>
+#include <sys/stat.h>
 #ifdef __cplusplus
 extern "C"{
 #endif
@@ -111,21 +113,17 @@ typedef int64_t useconds_t;
 int usleep(useconds_t usec);
 int gettimeofday(struct timeval* tv, struct timezone* tz);
 
-// for inet helpers.
-typedef int socklen_t;
-const char *inet_ntop(int af, const void *src, char *dst, socklen_t size);
-
 // for open().
 typedef int mode_t;
-#define S_IRUSR 0
-#define S_IWUSR 0
+#define S_IRUSR S_IREAD
+#define S_IWUSR S_IWRITE
 #define S_IXUSR 0
 #define S_IRGRP 0
 #define S_IWGRP 0
 #define S_IXGRP 0
 #define S_IROTH 0
 #define S_IXOTH 0
-
+#define S_IRWXU 0
 // for pid.
 typedef int pid_t;
 pid_t getpid(void);
@@ -146,6 +144,7 @@ int socket_cleanup();
 #define lseek _lseek
 #define write _write
 #define read _read
+#define unlink _unlink
 */
 struct iovec
 {

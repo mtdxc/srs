@@ -63,7 +63,7 @@ int SrsFileWriter::open(string p)
         return ret;
     }
     
-    int flags = O_CREAT|O_WRONLY|O_TRUNC;
+    int flags = O_CREAT | O_WRONLY | O_TRUNC | O_BINARY;
     mode_t mode = S_IRUSR|S_IWUSR|S_IRGRP|S_IWGRP|S_IROTH;
 
     if ((fd = _open(p.c_str(), flags, mode)) < 0) {
@@ -87,7 +87,7 @@ int SrsFileWriter::open_append(string p)
         return ret;
     }
     
-    int flags = O_APPEND|O_WRONLY;
+    int flags = O_APPEND | O_WRONLY | O_BINARY;
     mode_t mode = S_IRUSR|S_IWUSR|S_IRGRP|S_IWGRP|S_IROTH;
 
     if ((fd = _open(p.c_str(), flags, mode)) < 0) {
@@ -194,7 +194,7 @@ int SrsFileReader::open(string p)
         return ret;
     }
 
-    if ((fd = _open(p.c_str(), O_RDONLY)) < 0) {
+    if ((fd = _open(p.c_str(), O_RDONLY | O_BINARY)) < 0) {
         ret = ERROR_SYSTEM_FILE_OPENE;
         srs_error("open file %s failed. ret=%d", p.c_str(), ret);
         return ret;

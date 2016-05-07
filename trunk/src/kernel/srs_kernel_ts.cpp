@@ -3100,6 +3100,21 @@ int SrsTsEncoder::initialize(SrsFileWriter* fw)
     return ret;
 }
 
+int SrsTsEncoder::initialize(SrsFileWriter* fw, const char* path){
+  int ret = ERROR_SUCCESS;
+  srs_assert(fw);
+  writer = fw;
+
+  srs_freep(muxer);
+  muxer = new SrsTSMuxer(fw, context, SrsCodecAudioAAC, SrsCodecVideoAVC);
+
+  if ((ret = muxer->open(path)) != ERROR_SUCCESS) {
+    return ret;
+  }
+
+  return ret;
+}
+
 int SrsTsEncoder::write_audio(int64_t timestamp, char* data, int size)
 {
     int ret = ERROR_SUCCESS;
