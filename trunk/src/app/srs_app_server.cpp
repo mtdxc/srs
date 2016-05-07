@@ -414,7 +414,7 @@ int SrsSignalManager::start()
     * so that each process has its own private pipe.
     */
     struct sigaction sa;
-    
+#ifndef _WIN32 
     /* Install sig_catcher() as a signal handler */
     sa.sa_handler = SrsSignalManager::sig_catcher;
     sigemptyset(&sa.sa_mask);
@@ -435,9 +435,8 @@ int SrsSignalManager::start()
     sigemptyset(&sa.sa_mask);
     sa.sa_flags = 0;
     sigaction(SIGUSR2, &sa, NULL);
-    
+#endif    
     srs_trace("signal installed");
-    
     return pthread->start();
 }
 

@@ -24,9 +24,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <srs_app_edge.hpp>
 
 #include <stdlib.h>
+#ifdef _WIN32
+#include <winsock.h>
+#else
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#endif
 
 using namespace std;
 

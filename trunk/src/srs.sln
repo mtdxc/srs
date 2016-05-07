@@ -4,11 +4,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "srs", "srs.vcxproj", "{1C5BB312-1264-4181-B23C-A0C520CB6E41}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E2D4CF2B-093E-49AB-8A29-972775EDD8E0} = {E2D4CF2B-093E-49AB-8A29-972775EDD8E0}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "librtmp_test", "..\research\librtmp\librtmp_test.vcxproj", "{7170F243-7619-4690-8E11-131EA3940AC7}"
 	ProjectSection(ProjectDependencies) = postProject
 		{1C5BB312-1264-4181-B23C-A0C520CB6E41} = {1C5BB312-1264-4181-B23C-A0C520CB6E41}
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "st", "st\st.vcxproj", "{E2D4CF2B-093E-49AB-8A29-972775EDD8E0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,6 +29,10 @@ Global
 		{7170F243-7619-4690-8E11-131EA3940AC7}.Debug|Win32.Build.0 = Debug|Win32
 		{7170F243-7619-4690-8E11-131EA3940AC7}.Release|Win32.ActiveCfg = Release|Win32
 		{7170F243-7619-4690-8E11-131EA3940AC7}.Release|Win32.Build.0 = Release|Win32
+		{E2D4CF2B-093E-49AB-8A29-972775EDD8E0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E2D4CF2B-093E-49AB-8A29-972775EDD8E0}.Debug|Win32.Build.0 = Debug|Win32
+		{E2D4CF2B-093E-49AB-8A29-972775EDD8E0}.Release|Win32.ActiveCfg = Release|Win32
+		{E2D4CF2B-093E-49AB-8A29-972775EDD8E0}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

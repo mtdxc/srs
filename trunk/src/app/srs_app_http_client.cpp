@@ -24,9 +24,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <srs_app_http_client.hpp>
 
 #ifdef SRS_AUTO_HTTP_CORE
-
+#ifndef _WIN32
 #include <arpa/inet.h>
-
+#endif
 using namespace std;
 
 #include <srs_kernel_error.hpp>

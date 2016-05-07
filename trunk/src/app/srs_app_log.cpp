@@ -24,7 +24,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <srs_app_log.hpp>
 
 #include <stdarg.h>
+#ifdef _WIN32
+#include <time.h>
+#include "win32_io.h"
+#else
 #include <sys/time.h>
+#endif
 
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -301,11 +306,11 @@ bool SrsFastLog::generate_header(bool error, const char* tag, int context_id, co
     // to calendar time
     struct tm* tm;
     if (utc) {
-        if ((tm = gmtime(&tv.tv_sec)) == NULL) {
+        if ((tm = gmtime((time_t*)&tv.tv_sec)) == NULL) {
             return false;
         }
     } else {
-        if ((tm = localtime(&tv.tv_sec)) == NULL) {
+        if ((tm = localtime((time_t*)&tv.tv_sec)) == NULL) {
             return false;
         }
     }

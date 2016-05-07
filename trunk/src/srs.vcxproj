@@ -11,6 +11,41 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="app\http_parser.c" />
+    <ClCompile Include="app\srs_app_async_call.cpp" />
+    <ClCompile Include="app\srs_app_bandwidth.cpp" />
+    <ClCompile Include="app\srs_app_caster_flv.cpp" />
+    <ClCompile Include="app\srs_app_config.cpp" />
+    <ClCompile Include="app\srs_app_conn.cpp" />
+    <ClCompile Include="app\srs_app_dvr.cpp" />
+    <ClCompile Include="app\srs_app_edge.cpp" />
+    <ClCompile Include="app\srs_app_empty.cpp" />
+    <ClCompile Include="app\srs_app_encoder.cpp" />
+    <ClCompile Include="app\srs_app_forward.cpp" />
+    <ClCompile Include="app\srs_app_hds.cpp" />
+    <ClCompile Include="app\srs_app_heartbeat.cpp" />
+    <ClCompile Include="app\srs_app_hls.cpp" />
+    <ClCompile Include="app\srs_app_http_api.cpp" />
+    <ClCompile Include="app\srs_app_http_client.cpp" />
+    <ClCompile Include="app\srs_app_http_conn.cpp" />
+    <ClCompile Include="app\srs_app_http_hooks.cpp" />
+    <ClCompile Include="app\srs_app_http_static.cpp" />
+    <ClCompile Include="app\srs_app_http_stream.cpp" />
+    <ClCompile Include="app\srs_app_ingest.cpp" />
+    <ClCompile Include="app\srs_app_listener.cpp" />
+    <ClCompile Include="app\srs_app_log.cpp" />
+    <ClCompile Include="app\srs_app_mpegts_udp.cpp" />
+    <ClCompile Include="app\srs_app_pithy_print.cpp" />
+    <ClCompile Include="app\srs_app_recv_thread.cpp" />
+    <ClCompile Include="app\srs_app_refer.cpp" />
+    <ClCompile Include="app\srs_app_reload.cpp" />
+    <ClCompile Include="app\srs_app_rtmp_conn.cpp" />
+    <ClCompile Include="app\srs_app_rtsp.cpp" />
+    <ClCompile Include="app\srs_app_security.cpp" />
+    <ClCompile Include="app\srs_app_source.cpp" />
+    <ClCompile Include="app\srs_app_st.cpp" />
+    <ClCompile Include="app\srs_app_statistic.cpp" />
+    <ClCompile Include="app\srs_app_thread.cpp" />
     <ClCompile Include="core\srs_core.cpp" />
     <ClCompile Include="core\srs_core_autofree.cpp" />
     <ClCompile Include="core\srs_core_mem_watch.cpp" />
@@ -44,6 +79,45 @@
     <ClCompile Include="protocol\srs_rtsp_stack.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="app\http_parser.h" />
+    <ClInclude Include="app\srs_app_async_call.hpp" />
+    <ClInclude Include="app\srs_app_bandwidth.hpp" />
+    <ClInclude Include="app\srs_app_caster_flv.hpp" />
+    <ClInclude Include="app\srs_app_config.hpp" />
+    <ClInclude Include="app\srs_app_conn.hpp" />
+    <ClInclude Include="app\srs_app_dvr.hpp" />
+    <ClInclude Include="app\srs_app_edge.hpp" />
+    <ClInclude Include="app\srs_app_empty.hpp" />
+    <ClInclude Include="app\srs_app_encoder.hpp" />
+    <ClInclude Include="app\srs_app_ffmpeg.hpp" />
+    <ClInclude Include="app\srs_app_forward.hpp" />
+    <ClInclude Include="app\srs_app_hds.hpp" />
+    <ClInclude Include="app\srs_app_heartbeat.hpp" />
+    <ClInclude Include="app\srs_app_hls.hpp" />
+    <ClInclude Include="app\srs_app_http_api.hpp" />
+    <ClInclude Include="app\srs_app_http_client.hpp" />
+    <ClInclude Include="app\srs_app_http_conn.hpp" />
+    <ClInclude Include="app\srs_app_http_hooks.hpp" />
+    <ClInclude Include="app\srs_app_http_static.hpp" />
+    <ClInclude Include="app\srs_app_http_stream.hpp" />
+    <ClInclude Include="app\srs_app_ingest.hpp" />
+    <ClInclude Include="app\srs_app_listener.hpp" />
+    <ClInclude Include="app\srs_app_log.hpp" />
+    <ClInclude Include="app\srs_app_mpegts_udp.hpp" />
+    <ClInclude Include="app\srs_app_pithy_print.hpp" />
+    <ClInclude Include="app\srs_app_recv_thread.hpp" />
+    <ClInclude Include="app\srs_app_refer.hpp" />
+    <ClInclude Include="app\srs_app_reload.hpp" />
+    <ClInclude Include="app\srs_app_rtmp_conn.hpp" />
+    <ClInclude Include="app\srs_app_rtsp.hpp" />
+    <ClInclude Include="app\srs_app_security.hpp" />
+    <ClInclude Include="app\srs_app_server.hpp" />
+    <ClInclude Include="app\srs_app_source.hpp" />
+    <ClInclude Include="app\srs_app_st.hpp" />
+    <ClInclude Include="app\srs_app_statistic.hpp" />
+    <ClInclude Include="app\srs_app_thread.hpp" />
+    <ClInclude Include="app\srs_app_utility.hpp" />
+    <ClInclude Include="app\win32_io.h" />
     <ClInclude Include="core\srs_auto_headers.hpp" />
     <ClInclude Include="core\srs_core.hpp" />
     <ClInclude Include="core\srs_core_autofree.hpp" />
@@ -112,7 +186,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>kernel;core;protocol;libs</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>kernel;core;protocol;libs;app;st</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;SRS_EXPORT;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>

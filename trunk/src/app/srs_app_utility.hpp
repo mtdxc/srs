@@ -33,9 +33,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <vector>
 #include <string>
 #include <sstream>
-
+#ifndef _WIN32
 #include <arpa/inet.h>
 #include <sys/resource.h>
+#else
+#include <winsock.h>
+typedef in_addr in_addr_t;
+typedef int rusage;
+#endif // !_WIN32
 
 #include <srs_app_st.hpp>
 

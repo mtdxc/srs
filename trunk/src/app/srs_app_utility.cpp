@@ -24,18 +24,23 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <srs_app_utility.hpp>
 
 #include <sys/types.h>
+#ifndef _WIN32
 #include <unistd.h>
 #include <ifaddrs.h>
 #include <arpa/inet.h>
-#include <signal.h>
 #include <sys/wait.h>
+#include <sys/time.h>
+#else
+#include <time.h>
+#include <winsock.h>
+#endif
+#include <signal.h>
 #include <math.h>
 
 #ifdef SRS_OSX
 #include <sys/sysctl.h>
 #endif
 #include <stdlib.h>
-#include <sys/time.h>
 #include <map>
 using namespace std;
 
@@ -86,7 +91,7 @@ int srs_socket_connect(string server, int port, int64_t timeout, st_netfd_t* pst
     addr.sin_port = htons(port);
     addr.sin_addr.s_addr = inet_addr(ip.c_str());
     
-    if (st_connect(stfd, (const struct sockaddr*)&addr, sizeof(sockaddr_in), timeout) == -1){
+    if (st_connect(stfd, (sockaddr*)&addr, sizeof(sockaddr_in), timeout) == -1){
         ret = ERROR_ST_CONNECT;
         srs_error("connect to server error. ip=%s, port=%d, ret=%d", ip.c_str(), port, ret);
         goto failed;
@@ -149,11 +154,11 @@ string srs_path_build_timestamp(string template_path)
     // to calendar time
     struct tm* tm;
     if (_srs_config->get_utc_time()) {
-        if ((tm = gmtime(&tv.tv_sec)) == NULL) {
+        if ((tm = gmtime((time_t*)&tv.tv_sec)) == NULL) {
             return path;
         }
     } else {
-        if ((tm = localtime(&tv.tv_sec)) == NULL) {
+      if ((tm = localtime((time_t*)&tv.tv_sec)) == NULL) {
             return path;
         }
     }

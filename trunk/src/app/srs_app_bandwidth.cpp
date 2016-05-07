@@ -23,8 +23,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #include <srs_app_bandwidth.hpp>
-
+#ifndef _WIN32
 #include <arpa/inet.h>
+#endif
 #include <sstream>
 
 using namespace std;
@@ -284,7 +285,7 @@ int SrsBandwidth::play_checking(SrsBandwidthSample* sample, SrsKbpsLimit* limit)
     int ret = ERROR_SUCCESS;
 
     // send play data to client
-    int size = 1024; // TODO: FIXME: magic number
+    const int size = 1024; // TODO: FIXME: magic number
     char random_data[size];
     memset(random_data, 'A', size);
 

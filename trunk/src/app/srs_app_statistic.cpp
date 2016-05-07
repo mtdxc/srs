@@ -22,8 +22,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #include <srs_app_statistic.hpp>
-
+#ifndef _WIN32
 #include <unistd.h>
+#endif
 #include <sstream>
 using namespace std;
 

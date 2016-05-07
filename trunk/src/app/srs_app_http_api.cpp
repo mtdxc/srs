@@ -273,7 +273,7 @@ int SrsGoApiRusages::serve_http(ISrsHttpResponseWriter* w, ISrsHttpMessage* r)
     std::stringstream ss;
     
     SrsRusage* ru = srs_get_system_rusage();
-    
+#ifndef _WIN32
     ss << SRS_JOBJECT_START
         << SRS_JFIELD_ERROR(ERROR_SUCCESS) << SRS_JFIELD_CONT
         << SRS_JFIELD_ORG("server", stat->server_id()) << SRS_JFIELD_CONT
@@ -298,7 +298,7 @@ int SrsGoApiRusages::serve_http(ISrsHttpResponseWriter* w, ISrsHttpMessage* r)
             << SRS_JFIELD_ORG("ru_nivcsw", ru->r.ru_nivcsw)
         << SRS_JOBJECT_END
         << SRS_JOBJECT_END;
-    
+#endif // !_WIN32
     return srs_api_response(w, r, ss.str());
 }
 

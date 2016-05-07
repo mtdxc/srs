@@ -22,14 +22,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #include <srs_app_config.hpp>
-
+#ifndef _WIN32
 #include <unistd.h>
+#else
+#define getcwd _getcwd
+#endif
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
 #include <string.h>
 // file operations.
-#include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -1669,7 +1671,10 @@ int SrsConfig::check_config()
         int nb_connections = get_max_connections();
         int nb_total = nb_connections + nb_consumed_fds;
         
-        int max_open_files = (int)sysconf(_SC_OPEN_MAX);
+        int max_open_files = 1024;
+#ifndef _WIN32 
+        max_open_files = (int)sysconf(_SC_OPEN_MAX);
+#endif
         int nb_canbe = max_open_files - nb_consumed_fds - 1;
 
         // for each play connections, we open a pipe(2fds) to convert SrsConsumver to io,

@@ -24,11 +24,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <srs_app_rtmp_conn.hpp>
 
 #include <stdlib.h>
+#ifndef _WIN32
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <netinet/tcp.h>
-
+#else
+#include <winsock.h>
+#endif
 using namespace std;
 
 #include <srs_kernel_error.hpp>
@@ -1168,7 +1171,7 @@ void SrsRtmpConn::change_mw_sleep(int sleep_ms)
     int fd = st_netfd_fileno(stfd);
     int onb_sbuf = 0;
     socklen_t sock_buf_size = sizeof(int);
-    getsockopt(fd, SOL_SOCKET, SO_SNDBUF, &onb_sbuf, &sock_buf_size);
+    getsockopt(fd, SOL_SOCKET, SO_SNDBUF, (sockopt_t)&onb_sbuf, &sock_buf_size);
     
 #ifdef SRS_PERF_MW_SO_SNDBUF
     // the bytes:
@@ -1193,10 +1196,10 @@ void SrsRtmpConn::change_mw_sleep(int sleep_ms)
     #endif
     
     // set the socket send buffer when required larger buffer
-    if (setsockopt(fd, SOL_SOCKET, SO_SNDBUF, &nb_sbuf, sock_buf_size) < 0) {
+    if (setsockopt(fd, SOL_SOCKET, SO_SNDBUF, (sockopt_t)&nb_sbuf, sock_buf_size) < 0) {
         srs_warn("set sock SO_SENDBUF=%d failed.", nb_sbuf);
     }
-    getsockopt(fd, SOL_SOCKET, SO_SNDBUF, &nb_sbuf, &sock_buf_size);
+    getsockopt(fd, SOL_SOCKET, SO_SNDBUF, (sockopt_t)&nb_sbuf, &sock_buf_size);
     
     srs_trace("mw changed sleep %d=>%d, max_msgs=%d, esbuf=%d, sbuf %d=>%d, realtime=%d", 
         mw_sleep, sleep_ms, SRS_PERF_MW_MSGS, socket_buffer_size,
@@ -1220,14 +1223,14 @@ void SrsRtmpConn::set_sock_options()
         socklen_t nb_v = sizeof(int);
 
         int ov = 0;
-        getsockopt(fd, IPPROTO_TCP, TCP_NODELAY, &ov, &nb_v);
+        getsockopt(fd, IPPROTO_TCP, TCP_NODELAY, (sockopt_t)&ov, &nb_v);
 
         int v = tcp_nodelay;
         // set the socket send buffer when required larger buffer
-        if (setsockopt(fd, IPPROTO_TCP, TCP_NODELAY, &v, nb_v) < 0) {
+        if (setsockopt(fd, IPPROTO_TCP, TCP_NODELAY, (sockopt_t)&v, nb_v) < 0) {
             srs_warn("set sock TCP_NODELAY=%d failed.", v);
         }
-        getsockopt(fd, IPPROTO_TCP, TCP_NODELAY, &v, &nb_v);
+        getsockopt(fd, IPPROTO_TCP, TCP_NODELAY, (sockopt_t)&v, &nb_v);
 
         srs_trace("set TCP_NODELAY %d=>%d", ov, v);
 #else

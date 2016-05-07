@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{169c22fe-e331-49d4-87af-1372f0357b50}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{50a20541-ddf2-4402-93e5-52b1a243dcf0}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="md.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="neterr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="public.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="st.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="io_win.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="key.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sched.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sched_win.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stk.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sync.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Makefile" />
+    <None Include="README" />
+  </ItemGroup>
+</Project>

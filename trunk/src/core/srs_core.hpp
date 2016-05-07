@@ -96,7 +96,9 @@ typedef uint64_t u_int64_t;
 typedef uint32_t u_int32_t;
 typedef uint16_t u_int16_t;
 typedef uint8_t u_int8_t;
-typedef size_t ssize_t;
+typedef int ssize_t;
+typedef int socklen_t;
+typedef char* sockopt_t;
 #define PRId64 "lld"
 
 //#define _CRT_SECURE_NO_WARNINGS
@@ -137,14 +139,7 @@ int socket_cleanup();
 #endif
 
 /* for file seek.
-#include <io.h>
-#include <fcntl.h>
-#define open _open
-#define close _close
-#define lseek _lseek
-#define write _write
-#define read _read
-#define unlink _unlink
+#include "win32_io.h"
 */
 struct iovec
 {
@@ -156,6 +151,7 @@ struct iovec
 #else
 #include <sys/uio.h>
 #include <inttypes.h>
+typedef int* sockopt_t;
 #endif
 
 #include <assert.h>

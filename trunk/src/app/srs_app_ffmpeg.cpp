@@ -24,8 +24,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <srs_app_ffmpeg.hpp>
 
 #include <stdlib.h>
+#ifndef _WIN32
 #include <unistd.h>
 #include <sys/wait.h>
+#else
+#include "win32_io.h"
+#endif
 #include <fcntl.h>
 #include <signal.h>
 #include <sys/types.h>

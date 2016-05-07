@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="srs_flv_injecter.c">
+    <ClCompile Include="srs_h264_raw_publish.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

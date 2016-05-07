@@ -24,7 +24,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #ifdef SRS_AUTO_HDS
 
+#ifndef _WIN32
 #include <unistd.h>
+#else
+#include "win32_io.h"
+#endif
 #include <string>
 #include <vector>
 #include <sys/types.h>

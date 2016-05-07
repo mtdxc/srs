@@ -211,7 +211,7 @@ int srs_st_init()
         return ret;
     }
 #endif
-    
+#ifndef _WIN32
     // Select the best event system available on the OS. In Linux this is
     // epoll(). On BSD it will be kqueue.
     if (st_set_eventsys(ST_EVENTSYS_ALT) == -1) {
@@ -227,10 +227,14 @@ int srs_st_init()
         return ret;
     }
     srs_trace("st_init success, use %s", st_get_eventsys_name());
-    
+#endif
     return ret;
 }
 
+#ifdef _WIN32
+//#include <io.h>
+#include <winsock.h>
+#endif
 void srs_close_stfd(st_netfd_t& stfd)
 {
     if (stfd) {
@@ -240,7 +244,12 @@ void srs_close_stfd(st_netfd_t& stfd)
         
         // st does not close it sometimes, 
         // close it manually.
+#ifdef _WIN32
+        //_close(fd);
+        closesocket(fd);
+#else
         close(fd);
+#endif
     }
 }
 

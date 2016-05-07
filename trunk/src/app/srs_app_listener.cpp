@@ -24,8 +24,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <srs_app_listener.hpp>
 
 #include <sys/types.h>
+#ifndef _WIN32
 #include <sys/socket.h>
 #include <arpa/inet.h>
+#else
+#include <winsock.h>
+#define close closesocket
+#endif
 #include <signal.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -117,9 +122,9 @@ int SrsUdpListener::listen()
         return ret;
     }
     srs_verbose("create linux socket success. ip=%s, port=%d, fd=%d", ip.c_str(), port, _fd);
-    
+
     int reuse_socket = 1;
-    if (setsockopt(_fd, SOL_SOCKET, SO_REUSEADDR, &reuse_socket, sizeof(int)) == -1) {
+    if (setsockopt(_fd, SOL_SOCKET, SO_REUSEADDR, (sockopt_t)&reuse_socket, sizeof(int)) == -1) {
         ret = ERROR_SOCKET_SETREUSE;
         srs_error("setsockopt reuse-addr error. ip=%s, port=%d, ret=%d", ip.c_str(), port, ret);
         return ret;
@@ -221,7 +226,7 @@ int SrsTcpListener::listen()
     srs_verbose("create linux socket success. port=%d, fd=%d", port, _fd);
     
     int reuse_socket = 1;
-    if (setsockopt(_fd, SOL_SOCKET, SO_REUSEADDR, &reuse_socket, sizeof(int)) == -1) {
+    if (setsockopt(_fd, SOL_SOCKET, SO_REUSEADDR, (sockopt_t)&reuse_socket, sizeof(int)) == -1) {
         ret = ERROR_SOCKET_SETREUSE;
         srs_error("setsockopt reuse-addr error. port=%d, ret=%d", port, ret);
         return ret;
