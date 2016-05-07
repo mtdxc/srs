@@ -46,37 +46,6 @@
     <ClCompile Include="app\srs_app_st.cpp" />
     <ClCompile Include="app\srs_app_statistic.cpp" />
     <ClCompile Include="app\srs_app_thread.cpp" />
-    <ClCompile Include="core\srs_core.cpp" />
-    <ClCompile Include="core\srs_core_autofree.cpp" />
-    <ClCompile Include="core\srs_core_mem_watch.cpp" />
-    <ClCompile Include="core\srs_core_performance.cpp" />
-    <ClCompile Include="kernel\srs_kernel_aac.cpp" />
-    <ClCompile Include="kernel\srs_kernel_buffer.cpp" />
-    <ClCompile Include="kernel\srs_kernel_codec.cpp" />
-    <ClCompile Include="kernel\srs_kernel_consts.cpp" />
-    <ClCompile Include="kernel\srs_kernel_error.cpp" />
-    <ClCompile Include="kernel\srs_kernel_file.cpp" />
-    <ClCompile Include="kernel\srs_kernel_flv.cpp" />
-    <ClCompile Include="kernel\srs_kernel_log.cpp" />
-    <ClCompile Include="kernel\srs_kernel_mp3.cpp" />
-    <ClCompile Include="kernel\srs_kernel_stream.cpp" />
-    <ClCompile Include="kernel\srs_kernel_ts.cpp" />
-    <ClCompile Include="kernel\srs_kernel_utility.cpp" />
-    <ClCompile Include="libs\srs_librtmp.cpp" />
-    <ClCompile Include="libs\srs_lib_bandwidth.cpp" />
-    <ClCompile Include="libs\srs_lib_simple_socket.cpp" />
-    <ClCompile Include="protocol\srs_http_stack.cpp" />
-    <ClCompile Include="protocol\srs_protocol_buffer.cpp" />
-    <ClCompile Include="protocol\srs_protocol_json.cpp" />
-    <ClCompile Include="protocol\srs_protocol_kbps.cpp" />
-    <ClCompile Include="protocol\srs_raw_avc.cpp" />
-    <ClCompile Include="protocol\srs_rtmp_amf0.cpp" />
-    <ClCompile Include="protocol\srs_rtmp_handshake.cpp" />
-    <ClCompile Include="protocol\srs_rtmp_io.cpp" />
-    <ClCompile Include="protocol\srs_rtmp_msg_array.cpp" />
-    <ClCompile Include="protocol\srs_rtmp_stack.cpp" />
-    <ClCompile Include="protocol\srs_rtmp_utility.cpp" />
-    <ClCompile Include="protocol\srs_rtsp_stack.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app\http_parser.h" />
@@ -117,44 +86,11 @@
     <ClInclude Include="app\srs_app_statistic.hpp" />
     <ClInclude Include="app\srs_app_thread.hpp" />
     <ClInclude Include="app\srs_app_utility.hpp" />
-    <ClInclude Include="app\win32_io.h" />
-    <ClInclude Include="core\srs_auto_headers.hpp" />
-    <ClInclude Include="core\srs_core.hpp" />
-    <ClInclude Include="core\srs_core_autofree.hpp" />
-    <ClInclude Include="core\srs_core_mem_watch.hpp" />
-    <ClInclude Include="core\srs_core_performance.hpp" />
-    <ClInclude Include="kernel\srs_kernel_aac.hpp" />
-    <ClInclude Include="kernel\srs_kernel_buffer.hpp" />
-    <ClInclude Include="kernel\srs_kernel_codec.hpp" />
-    <ClInclude Include="kernel\srs_kernel_consts.hpp" />
-    <ClInclude Include="kernel\srs_kernel_error.hpp" />
-    <ClInclude Include="kernel\srs_kernel_file.hpp" />
-    <ClInclude Include="kernel\srs_kernel_flv.hpp" />
-    <ClInclude Include="kernel\srs_kernel_log.hpp" />
-    <ClInclude Include="kernel\srs_kernel_mp3.hpp" />
-    <ClInclude Include="kernel\srs_kernel_stream.hpp" />
-    <ClInclude Include="kernel\srs_kernel_ts.hpp" />
-    <ClInclude Include="kernel\srs_kernel_utility.hpp" />
-    <ClInclude Include="libs\srs_librtmp.hpp" />
-    <ClInclude Include="libs\srs_lib_bandwidth.hpp" />
-    <ClInclude Include="libs\srs_lib_simple_socket.hpp" />
-    <ClInclude Include="protocol\srs_http_stack.hpp" />
-    <ClInclude Include="protocol\srs_protocol_buffer.hpp" />
-    <ClInclude Include="protocol\srs_protocol_json.hpp" />
-    <ClInclude Include="protocol\srs_protocol_kbps.hpp" />
-    <ClInclude Include="protocol\srs_raw_avc.hpp" />
-    <ClInclude Include="protocol\srs_rtmp_amf0.hpp" />
-    <ClInclude Include="protocol\srs_rtmp_handshake.hpp" />
-    <ClInclude Include="protocol\srs_rtmp_io.hpp" />
-    <ClInclude Include="protocol\srs_rtmp_msg_array.hpp" />
-    <ClInclude Include="protocol\srs_rtmp_stack.hpp" />
-    <ClInclude Include="protocol\srs_rtmp_utility.hpp" />
-    <ClInclude Include="protocol\srs_rtsp_stack.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1C5BB312-1264-4181-B23C-A0C520CB6E41}</ProjectGuid>
     <RootNamespace>srs_kernel</RootNamespace>
-    <ProjectName>srs</ProjectName>
+    <ProjectName>srs_app</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

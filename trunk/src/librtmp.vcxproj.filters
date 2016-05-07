@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\core">
+      <UniqueIdentifier>{1604815e-3280-4cc1-84e5-7e7536ba1810}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\core">
+      <UniqueIdentifier>{25f8e753-03d3-4157-86bd-3c66263e4e5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\kernel">
+      <UniqueIdentifier>{7839a8bd-6fb9-4de9-a4db-2dd3e3e8f69c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\kernel">
+      <UniqueIdentifier>{153ff549-7b63-417e-a689-28e53905ab77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\libs">
+      <UniqueIdentifier>{ab996309-7392-4f1b-b07a-8bd2cb1f1f83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\libs">
+      <UniqueIdentifier>{8d0432c5-6d84-4da2-b3e3-5e12d420e52e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\protocol">
+      <UniqueIdentifier>{e5fc14e3-567e-4fc3-828f-fe5f02c3352a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\protocol">
+      <UniqueIdentifier>{1eb2f41e-fb48-4796-8901-d39d52dd911a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="core\srs_core.cpp">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\srs_core_autofree.cpp">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\srs_core_mem_watch.cpp">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\srs_core_performance.cpp">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\srs_kernel_aac.cpp">
+      <Filter>Source Files\kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\srs_kernel_buffer.cpp">
+      <Filter>Source Files\kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\srs_kernel_codec.cpp">
+      <Filter>Source Files\kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\srs_kernel_consts.cpp">
+      <Filter>Source Files\kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\srs_kernel_error.cpp">
+      <Filter>Source Files\kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\srs_kernel_file.cpp">
+      <Filter>Source Files\kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\srs_kernel_flv.cpp">
+      <Filter>Source Files\kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\srs_kernel_log.cpp">
+      <Filter>Source Files\kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\srs_kernel_mp3.cpp">
+      <Filter>Source Files\kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\srs_kernel_stream.cpp">
+      <Filter>Source Files\kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\srs_kernel_ts.cpp">
+      <Filter>Source Files\kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="kernel\srs_kernel_utility.cpp">
+      <Filter>Source Files\kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\srs_librtmp.cpp">
+      <Filter>Source Files\libs</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\srs_lib_bandwidth.cpp">
+      <Filter>Source Files\libs</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\srs_lib_simple_socket.cpp">
+      <Filter>Source Files\libs</Filter>
+    </ClCompile>
+    <ClCompile Include="protocol\srs_http_stack.cpp">
+      <Filter>Source Files\protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="protocol\srs_protocol_buffer.cpp">
+      <Filter>Source Files\protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="protocol\srs_protocol_json.cpp">
+      <Filter>Source Files\protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="protocol\srs_protocol_kbps.cpp">
+      <Filter>Source Files\protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="protocol\srs_raw_avc.cpp">
+      <Filter>Source Files\protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="protocol\srs_rtmp_amf0.cpp">
+      <Filter>Source Files\protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="protocol\srs_rtmp_handshake.cpp">
+      <Filter>Source Files\protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="protocol\srs_rtmp_io.cpp">
+      <Filter>Source Files\protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="protocol\srs_rtmp_msg_array.cpp">
+      <Filter>Source Files\protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="protocol\srs_rtmp_stack.cpp">
+      <Filter>Source Files\protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="protocol\srs_rtmp_utility.cpp">
+      <Filter>Source Files\protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="protocol\srs_rtsp_stack.cpp">
+      <Filter>Source Files\protocol</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="core\srs_auto_headers.hpp">
+      <Filter>Header Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\srs_core.hpp">
+      <Filter>Header Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\srs_core_autofree.hpp">
+      <Filter>Header Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\srs_core_mem_watch.hpp">
+      <Filter>Header Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\srs_core_performance.hpp">
+      <Filter>Header Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\win32_io.h">
+      <Filter>Header Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\srs_kernel_aac.hpp">
+      <Filter>Header Files\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\srs_kernel_buffer.hpp">
+      <Filter>Header Files\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\srs_kernel_codec.hpp">
+      <Filter>Header Files\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\srs_kernel_consts.hpp">
+      <Filter>Header Files\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\srs_kernel_error.hpp">
+      <Filter>Header Files\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\srs_kernel_file.hpp">
+      <Filter>Header Files\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\srs_kernel_flv.hpp">
+      <Filter>Header Files\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\srs_kernel_log.hpp">
+      <Filter>Header Files\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\srs_kernel_mp3.hpp">
+      <Filter>Header Files\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\srs_kernel_stream.hpp">
+      <Filter>Header Files\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\srs_kernel_ts.hpp">
+      <Filter>Header Files\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel\srs_kernel_utility.hpp">
+      <Filter>Header Files\kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\srs_librtmp.hpp">
+      <Filter>Header Files\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\srs_lib_bandwidth.hpp">
+      <Filter>Header Files\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\srs_lib_simple_socket.hpp">
+      <Filter>Header Files\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\srs_http_stack.hpp">
+      <Filter>Header Files\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\srs_protocol_buffer.hpp">
+      <Filter>Header Files\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\srs_protocol_json.hpp">
+      <Filter>Header Files\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\srs_protocol_kbps.hpp">
+      <Filter>Header Files\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\srs_raw_avc.hpp">
+      <Filter>Header Files\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\srs_rtmp_amf0.hpp">
+      <Filter>Header Files\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\srs_rtmp_handshake.hpp">
+      <Filter>Header Files\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\srs_rtmp_io.hpp">
+      <Filter>Header Files\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\srs_rtmp_msg_array.hpp">
+      <Filter>Header Files\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\srs_rtmp_stack.hpp">
+      <Filter>Header Files\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\srs_rtmp_utility.hpp">
+      <Filter>Header Files\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\srs_rtsp_stack.hpp">
+      <Filter>Header Files\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="app\win32_io.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

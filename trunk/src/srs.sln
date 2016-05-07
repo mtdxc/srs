@@ -3,17 +3,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "srs", "srs.vcxproj", "{1C5BB312-1264-4181-B23C-A0C520CB6E41}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "srs", "srs_app.vcxproj", "{1C5BB312-1264-4181-B23C-A0C520CB6E41}"
 	ProjectSection(ProjectDependencies) = postProject
 		{E2D4CF2B-093E-49AB-8A29-972775EDD8E0} = {E2D4CF2B-093E-49AB-8A29-972775EDD8E0}
+		{E03EA492-163C-40BA-8798-76D7D8344CB0} = {E03EA492-163C-40BA-8798-76D7D8344CB0}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "librtmp_test", "..\research\librtmp\librtmp_test.vcxproj", "{7170F243-7619-4690-8E11-131EA3940AC7}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtmp_test", "..\research\librtmp\rtmp_test.vcxproj", "{7170F243-7619-4690-8E11-131EA3940AC7}"
 	ProjectSection(ProjectDependencies) = postProject
-		{1C5BB312-1264-4181-B23C-A0C520CB6E41} = {1C5BB312-1264-4181-B23C-A0C520CB6E41}
+		{E03EA492-163C-40BA-8798-76D7D8344CB0} = {E03EA492-163C-40BA-8798-76D7D8344CB0}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "st", "st\st.vcxproj", "{E2D4CF2B-093E-49AB-8A29-972775EDD8E0}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "librtmp", "librtmp.vcxproj", "{E03EA492-163C-40BA-8798-76D7D8344CB0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +36,10 @@ Global
 		{E2D4CF2B-093E-49AB-8A29-972775EDD8E0}.Debug|Win32.Build.0 = Debug|Win32
 		{E2D4CF2B-093E-49AB-8A29-972775EDD8E0}.Release|Win32.ActiveCfg = Release|Win32
 		{E2D4CF2B-093E-49AB-8A29-972775EDD8E0}.Release|Win32.Build.0 = Release|Win32
+		{E03EA492-163C-40BA-8798-76D7D8344CB0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E03EA492-163C-40BA-8798-76D7D8344CB0}.Debug|Win32.Build.0 = Debug|Win32
+		{E03EA492-163C-40BA-8798-76D7D8344CB0}.Release|Win32.ActiveCfg = Release|Win32
+		{E03EA492-163C-40BA-8798-76D7D8344CB0}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

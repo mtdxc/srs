@@ -453,6 +453,7 @@ typedef void* srs_flv_t;
 extern srs_flv_t srs_flv_open_read(const char* file);
 extern srs_flv_t srs_flv_open_write(const char* file);
 extern void srs_flv_close(srs_flv_t flv);
+extern int srs_flv2ts(const char* flvPath, const char* dst);
 /**
 * read the flv header. 9bytes header. 
 * @param header, @see E.2 The FLV header, flv_v10_1.pdf in SRS doc.

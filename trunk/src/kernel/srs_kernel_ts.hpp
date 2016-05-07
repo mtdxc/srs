@@ -1554,10 +1554,10 @@ protected:
 */
 class SrsTSMuxer
 {
-private:
+protected:
     SrsCodecVideo vcodec;
     SrsCodecAudio acodec;
-private:
+
     SrsTsContext* context;
     SrsFileWriter* writer;
     std::string path;
@@ -1595,6 +1595,17 @@ public:
      * get the video codec of ts muxer.
      */
     virtual SrsCodecVideo video_codec();
+};
+// add by caiqm
+class SrsTsWriter :public SrsTSMuxer{
+public:
+  SrsTsWriter(SrsCodecAudio ac, SrsCodecVideo vc);
+  virtual ~SrsTsWriter();
+
+  // 必须携带264 NAL头部
+  int write_video(int tsp,const char* data, int len, bool bKey);
+  // 必须带AAC头部
+  int write_audio(int tsp,const char* data, int len);
 };
 
 /**

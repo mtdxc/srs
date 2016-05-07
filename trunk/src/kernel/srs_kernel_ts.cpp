@@ -2760,6 +2760,7 @@ int SrsTSMuxer::write_video(SrsTsMessage* video)
 
 void SrsTSMuxer::close()
 {
+  if (writer)
     writer->close();
 }
 
@@ -3231,3 +3232,107 @@ int SrsTsEncoder::flush_video()
 
 #endif
 
+SrsTsWriter::SrsTsWriter(SrsCodecAudio ac, SrsCodecVideo vc) :
+SrsTSMuxer(new SrsFileWriter(), new SrsTsContext(), ac, vc)
+{
+
+}
+
+SrsTsWriter::~SrsTsWriter()
+{
+  close();
+  srs_freep(context);
+  srs_freep(writer);
+}
+
+int SrsTsWriter::write_video(int tsp, const char* data, int len, bool bKey)
+{
+  SrsTsMessage video;
+  video.write_pcr = bKey;
+  video.start_pts = video.dts = video.pts = tsp * 90;
+  video.sid = SrsTsPESStreamIdVideoCommon;
+  // 普通nal 00000001头部
+  video.payload->append(data, len);
+  return SrsTSMuxer::write_video(&video);
+}
+
+int SrsTsWriter::write_audio(int tsp, const char* data, int len)
+{
+  //muxer->update_acodec(SrsCodecAudioAAC);
+  SrsTsMessage audio;
+  audio.write_pcr = false;
+  audio.dts = audio.pts = audio.start_pts = tsp * 90;
+  audio.sid = SrsTsPESStreamIdAudioCommon;
+  // 必须带adts头部
+  audio.payload->append(data, len);
+  return SrsTSMuxer::write_audio(&audio);
+}
+
+#include "srs_librtmp.hpp"
+int srs_flv2ts(const char* flvPath, const char* dst)
+{
+  srs_flv_t flv = srs_flv_open_read(flvPath);
+  char header[13];
+  // packet data
+  char type;
+  u_int32_t timestamp = 0;
+  char* data = NULL;
+  int32_t size;
+  int64_t offset = 0;
+  int ret = 0;
+  if ((ret = srs_flv_read_header(flv, header)) != 0) {
+    return ret;
+  }
+
+  SrsFileWriter fw;
+  SrsTsEncoder tsEnc;
+  tsEnc.initialize(&fw, dst);
+
+  srs_human_trace("start parse flv");
+  for (;;) {
+    offset = srs_flv_tellg(flv);
+
+    // tag header
+    if ((ret = srs_flv_read_tag_header(flv, &type, &size, &timestamp)) != 0) {
+      if (srs_flv_is_eof(ret)) {
+        srs_human_trace("parse completed.");
+        return 0;
+      }
+      srs_human_trace("flv get packet failed. ret=%d", ret);
+      return ret;
+    }
+
+    if (size <= 0) {
+      srs_human_trace("invalid size=%d", size);
+      break;
+    }
+
+    data = (char*)malloc(size);
+
+    if ((ret = srs_flv_read_tag_data(flv, data, size)) == 0) {
+      switch (type)
+      {
+      case SRS_RTMP_TYPE_AUDIO:
+        tsEnc.write_audio(timestamp, data, size);
+        break;
+      case SRS_RTMP_TYPE_VIDEO:
+        tsEnc.write_video(timestamp, data, size);
+        break;
+      default:
+        break;
+      }
+    }
+    else {
+      srs_human_trace("read flv failed. ret=%d", ret);
+    }
+
+    free(data);
+
+    if (ret != 0) {
+      srs_human_trace("parse failed, ret=%d", ret);
+      return ret;
+    }
+  }
+  srs_flv_close(flv);
+  return 0;
+}
