@@ -1,0 +1,538 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C92E0B6D1CDF8C7500AD0FD5 /* srs_auto_headers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C92E0B641CDF8C7500AD0FD5 /* srs_auto_headers.hpp */; };
+		C92E0B6E1CDF8C7500AD0FD5 /* srs_core_autofree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C92E0B651CDF8C7500AD0FD5 /* srs_core_autofree.cpp */; };
+		C92E0B6F1CDF8C7500AD0FD5 /* srs_core_autofree.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C92E0B661CDF8C7500AD0FD5 /* srs_core_autofree.hpp */; };
+		C92E0B701CDF8C7500AD0FD5 /* srs_core_mem_watch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C92E0B671CDF8C7500AD0FD5 /* srs_core_mem_watch.cpp */; };
+		C92E0B711CDF8C7500AD0FD5 /* srs_core_mem_watch.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C92E0B681CDF8C7500AD0FD5 /* srs_core_mem_watch.hpp */; };
+		C92E0B721CDF8C7500AD0FD5 /* srs_core_performance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C92E0B691CDF8C7500AD0FD5 /* srs_core_performance.cpp */; };
+		C92E0B731CDF8C7500AD0FD5 /* srs_core_performance.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C92E0B6A1CDF8C7500AD0FD5 /* srs_core_performance.hpp */; };
+		C92E0B741CDF8C7500AD0FD5 /* srs_core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C92E0B6B1CDF8C7500AD0FD5 /* srs_core.cpp */; };
+		C92E0B751CDF8C7500AD0FD5 /* srs_core.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C92E0B6C1CDF8C7500AD0FD5 /* srs_core.hpp */; };
+		C92E0B8F1CDF8CEE00AD0FD5 /* srs_kernel_aac.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C92E0B771CDF8CEE00AD0FD5 /* srs_kernel_aac.cpp */; };
+		C92E0B901CDF8CEE00AD0FD5 /* srs_kernel_aac.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C92E0B781CDF8CEE00AD0FD5 /* srs_kernel_aac.hpp */; };
+		C92E0B911CDF8CEE00AD0FD5 /* srs_kernel_buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C92E0B791CDF8CEE00AD0FD5 /* srs_kernel_buffer.cpp */; };
+		C92E0B921CDF8CEE00AD0FD5 /* srs_kernel_buffer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C92E0B7A1CDF8CEE00AD0FD5 /* srs_kernel_buffer.hpp */; };
+		C92E0B931CDF8CEE00AD0FD5 /* srs_kernel_codec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C92E0B7B1CDF8CEE00AD0FD5 /* srs_kernel_codec.cpp */; };
+		C92E0B941CDF8CEE00AD0FD5 /* srs_kernel_codec.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C92E0B7C1CDF8CEE00AD0FD5 /* srs_kernel_codec.hpp */; };
+		C92E0B951CDF8CEE00AD0FD5 /* srs_kernel_consts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C92E0B7D1CDF8CEE00AD0FD5 /* srs_kernel_consts.cpp */; };
+		C92E0B961CDF8CEE00AD0FD5 /* srs_kernel_consts.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C92E0B7E1CDF8CEE00AD0FD5 /* srs_kernel_consts.hpp */; };
+		C92E0B971CDF8CEE00AD0FD5 /* srs_kernel_error.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C92E0B7F1CDF8CEE00AD0FD5 /* srs_kernel_error.cpp */; };
+		C92E0B981CDF8CEE00AD0FD5 /* srs_kernel_error.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C92E0B801CDF8CEE00AD0FD5 /* srs_kernel_error.hpp */; };
+		C92E0B991CDF8CEE00AD0FD5 /* srs_kernel_file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C92E0B811CDF8CEE00AD0FD5 /* srs_kernel_file.cpp */; };
+		C92E0B9A1CDF8CEE00AD0FD5 /* srs_kernel_file.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C92E0B821CDF8CEE00AD0FD5 /* srs_kernel_file.hpp */; };
+		C92E0B9B1CDF8CEE00AD0FD5 /* srs_kernel_flv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C92E0B831CDF8CEE00AD0FD5 /* srs_kernel_flv.cpp */; };
+		C92E0B9C1CDF8CEE00AD0FD5 /* srs_kernel_flv.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C92E0B841CDF8CEE00AD0FD5 /* srs_kernel_flv.hpp */; };
+		C92E0B9D1CDF8CEE00AD0FD5 /* srs_kernel_log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C92E0B851CDF8CEE00AD0FD5 /* srs_kernel_log.cpp */; };
+		C92E0B9E1CDF8CEE00AD0FD5 /* srs_kernel_log.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C92E0B861CDF8CEE00AD0FD5 /* srs_kernel_log.hpp */; };
+		C92E0B9F1CDF8CEE00AD0FD5 /* srs_kernel_mp3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C92E0B871CDF8CEE00AD0FD5 /* srs_kernel_mp3.cpp */; };
+		C92E0BA01CDF8CEE00AD0FD5 /* srs_kernel_mp3.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C92E0B881CDF8CEE00AD0FD5 /* srs_kernel_mp3.hpp */; };
+		C92E0BA11CDF8CEE00AD0FD5 /* srs_kernel_stream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C92E0B891CDF8CEE00AD0FD5 /* srs_kernel_stream.cpp */; };
+		C92E0BA21CDF8CEE00AD0FD5 /* srs_kernel_stream.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C92E0B8A1CDF8CEE00AD0FD5 /* srs_kernel_stream.hpp */; };
+		C92E0BA31CDF8CEE00AD0FD5 /* srs_kernel_ts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C92E0B8B1CDF8CEE00AD0FD5 /* srs_kernel_ts.cpp */; };
+		C92E0BA41CDF8CEE00AD0FD5 /* srs_kernel_ts.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C92E0B8C1CDF8CEE00AD0FD5 /* srs_kernel_ts.hpp */; };
+		C92E0BA51CDF8CEE00AD0FD5 /* srs_kernel_utility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C92E0B8D1CDF8CEE00AD0FD5 /* srs_kernel_utility.cpp */; };
+		C92E0BA61CDF8CEE00AD0FD5 /* srs_kernel_utility.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C92E0B8E1CDF8CEE00AD0FD5 /* srs_kernel_utility.hpp */; };
+		C92E0BAE1CDF8EB200AD0FD5 /* srs_lib_bandwidth.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C92E0BA81CDF8EB200AD0FD5 /* srs_lib_bandwidth.cpp */; };
+		C92E0BAF1CDF8EB200AD0FD5 /* srs_lib_bandwidth.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C92E0BA91CDF8EB200AD0FD5 /* srs_lib_bandwidth.hpp */; };
+		C92E0BB01CDF8EB200AD0FD5 /* srs_lib_simple_socket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C92E0BAA1CDF8EB200AD0FD5 /* srs_lib_simple_socket.cpp */; };
+		C92E0BB11CDF8EB200AD0FD5 /* srs_lib_simple_socket.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C92E0BAB1CDF8EB200AD0FD5 /* srs_lib_simple_socket.hpp */; };
+		C92E0BB21CDF8EB200AD0FD5 /* srs_librtmp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C92E0BAC1CDF8EB200AD0FD5 /* srs_librtmp.cpp */; };
+		C92E0BB31CDF8EB200AD0FD5 /* srs_librtmp.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C92E0BAD1CDF8EB200AD0FD5 /* srs_librtmp.hpp */; };
+		C92E0BCD1CDF8ECD00AD0FD5 /* srs_http_stack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C92E0BB51CDF8ECD00AD0FD5 /* srs_http_stack.cpp */; };
+		C92E0BCE1CDF8ECD00AD0FD5 /* srs_http_stack.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C92E0BB61CDF8ECD00AD0FD5 /* srs_http_stack.hpp */; };
+		C92E0BCF1CDF8ECD00AD0FD5 /* srs_protocol_buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C92E0BB71CDF8ECD00AD0FD5 /* srs_protocol_buffer.cpp */; };
+		C92E0BD01CDF8ECD00AD0FD5 /* srs_protocol_buffer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C92E0BB81CDF8ECD00AD0FD5 /* srs_protocol_buffer.hpp */; };
+		C92E0BD11CDF8ECD00AD0FD5 /* srs_protocol_json.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C92E0BB91CDF8ECD00AD0FD5 /* srs_protocol_json.cpp */; };
+		C92E0BD21CDF8ECD00AD0FD5 /* srs_protocol_json.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C92E0BBA1CDF8ECD00AD0FD5 /* srs_protocol_json.hpp */; };
+		C92E0BD31CDF8ECD00AD0FD5 /* srs_protocol_kbps.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C92E0BBB1CDF8ECD00AD0FD5 /* srs_protocol_kbps.cpp */; };
+		C92E0BD41CDF8ECD00AD0FD5 /* srs_protocol_kbps.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C92E0BBC1CDF8ECD00AD0FD5 /* srs_protocol_kbps.hpp */; };
+		C92E0BD51CDF8ECD00AD0FD5 /* srs_raw_avc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C92E0BBD1CDF8ECD00AD0FD5 /* srs_raw_avc.cpp */; };
+		C92E0BD61CDF8ECD00AD0FD5 /* srs_raw_avc.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C92E0BBE1CDF8ECD00AD0FD5 /* srs_raw_avc.hpp */; };
+		C92E0BD71CDF8ECD00AD0FD5 /* srs_rtmp_amf0.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C92E0BBF1CDF8ECD00AD0FD5 /* srs_rtmp_amf0.cpp */; };
+		C92E0BD81CDF8ECD00AD0FD5 /* srs_rtmp_amf0.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C92E0BC01CDF8ECD00AD0FD5 /* srs_rtmp_amf0.hpp */; };
+		C92E0BD91CDF8ECD00AD0FD5 /* srs_rtmp_handshake.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C92E0BC11CDF8ECD00AD0FD5 /* srs_rtmp_handshake.cpp */; };
+		C92E0BDA1CDF8ECD00AD0FD5 /* srs_rtmp_handshake.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C92E0BC21CDF8ECD00AD0FD5 /* srs_rtmp_handshake.hpp */; };
+		C92E0BDB1CDF8ECD00AD0FD5 /* srs_rtmp_io.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C92E0BC31CDF8ECD00AD0FD5 /* srs_rtmp_io.cpp */; };
+		C92E0BDC1CDF8ECD00AD0FD5 /* srs_rtmp_io.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C92E0BC41CDF8ECD00AD0FD5 /* srs_rtmp_io.hpp */; };
+		C92E0BDD1CDF8ECD00AD0FD5 /* srs_rtmp_msg_array.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C92E0BC51CDF8ECD00AD0FD5 /* srs_rtmp_msg_array.cpp */; };
+		C92E0BDE1CDF8ECD00AD0FD5 /* srs_rtmp_msg_array.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C92E0BC61CDF8ECD00AD0FD5 /* srs_rtmp_msg_array.hpp */; };
+		C92E0BDF1CDF8ECD00AD0FD5 /* srs_rtmp_stack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C92E0BC71CDF8ECD00AD0FD5 /* srs_rtmp_stack.cpp */; };
+		C92E0BE01CDF8ECD00AD0FD5 /* srs_rtmp_stack.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C92E0BC81CDF8ECD00AD0FD5 /* srs_rtmp_stack.hpp */; };
+		C92E0BE11CDF8ECD00AD0FD5 /* srs_rtmp_utility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C92E0BC91CDF8ECD00AD0FD5 /* srs_rtmp_utility.cpp */; };
+		C92E0BE21CDF8ECD00AD0FD5 /* srs_rtmp_utility.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C92E0BCA1CDF8ECD00AD0FD5 /* srs_rtmp_utility.hpp */; };
+		C92E0BE31CDF8ECD00AD0FD5 /* srs_rtsp_stack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C92E0BCB1CDF8ECD00AD0FD5 /* srs_rtsp_stack.cpp */; };
+		C92E0BE41CDF8ECD00AD0FD5 /* srs_rtsp_stack.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C92E0BCC1CDF8ECD00AD0FD5 /* srs_rtsp_stack.hpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		C92E0B541CDF8BBD00AD0FD5 /* liblibrtmp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblibrtmp.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C92E0B641CDF8C7500AD0FD5 /* srs_auto_headers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = srs_auto_headers.hpp; path = core/srs_auto_headers.hpp; sourceTree = "<group>"; };
+		C92E0B651CDF8C7500AD0FD5 /* srs_core_autofree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = srs_core_autofree.cpp; path = core/srs_core_autofree.cpp; sourceTree = "<group>"; };
+		C92E0B661CDF8C7500AD0FD5 /* srs_core_autofree.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = srs_core_autofree.hpp; path = core/srs_core_autofree.hpp; sourceTree = "<group>"; };
+		C92E0B671CDF8C7500AD0FD5 /* srs_core_mem_watch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = srs_core_mem_watch.cpp; path = core/srs_core_mem_watch.cpp; sourceTree = "<group>"; };
+		C92E0B681CDF8C7500AD0FD5 /* srs_core_mem_watch.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = srs_core_mem_watch.hpp; path = core/srs_core_mem_watch.hpp; sourceTree = "<group>"; };
+		C92E0B691CDF8C7500AD0FD5 /* srs_core_performance.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = srs_core_performance.cpp; path = core/srs_core_performance.cpp; sourceTree = "<group>"; };
+		C92E0B6A1CDF8C7500AD0FD5 /* srs_core_performance.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = srs_core_performance.hpp; path = core/srs_core_performance.hpp; sourceTree = "<group>"; };
+		C92E0B6B1CDF8C7500AD0FD5 /* srs_core.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = srs_core.cpp; path = core/srs_core.cpp; sourceTree = "<group>"; };
+		C92E0B6C1CDF8C7500AD0FD5 /* srs_core.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = srs_core.hpp; path = core/srs_core.hpp; sourceTree = "<group>"; };
+		C92E0B771CDF8CEE00AD0FD5 /* srs_kernel_aac.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = srs_kernel_aac.cpp; path = kernel/srs_kernel_aac.cpp; sourceTree = SOURCE_ROOT; };
+		C92E0B781CDF8CEE00AD0FD5 /* srs_kernel_aac.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = srs_kernel_aac.hpp; path = kernel/srs_kernel_aac.hpp; sourceTree = SOURCE_ROOT; };
+		C92E0B791CDF8CEE00AD0FD5 /* srs_kernel_buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = srs_kernel_buffer.cpp; path = kernel/srs_kernel_buffer.cpp; sourceTree = SOURCE_ROOT; };
+		C92E0B7A1CDF8CEE00AD0FD5 /* srs_kernel_buffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = srs_kernel_buffer.hpp; path = kernel/srs_kernel_buffer.hpp; sourceTree = SOURCE_ROOT; };
+		C92E0B7B1CDF8CEE00AD0FD5 /* srs_kernel_codec.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = srs_kernel_codec.cpp; path = kernel/srs_kernel_codec.cpp; sourceTree = SOURCE_ROOT; };
+		C92E0B7C1CDF8CEE00AD0FD5 /* srs_kernel_codec.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = srs_kernel_codec.hpp; path = kernel/srs_kernel_codec.hpp; sourceTree = SOURCE_ROOT; };
+		C92E0B7D1CDF8CEE00AD0FD5 /* srs_kernel_consts.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = srs_kernel_consts.cpp; path = kernel/srs_kernel_consts.cpp; sourceTree = SOURCE_ROOT; };
+		C92E0B7E1CDF8CEE00AD0FD5 /* srs_kernel_consts.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = srs_kernel_consts.hpp; path = kernel/srs_kernel_consts.hpp; sourceTree = SOURCE_ROOT; };
+		C92E0B7F1CDF8CEE00AD0FD5 /* srs_kernel_error.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = srs_kernel_error.cpp; path = kernel/srs_kernel_error.cpp; sourceTree = SOURCE_ROOT; };
+		C92E0B801CDF8CEE00AD0FD5 /* srs_kernel_error.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = srs_kernel_error.hpp; path = kernel/srs_kernel_error.hpp; sourceTree = SOURCE_ROOT; };
+		C92E0B811CDF8CEE00AD0FD5 /* srs_kernel_file.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = srs_kernel_file.cpp; path = kernel/srs_kernel_file.cpp; sourceTree = SOURCE_ROOT; };
+		C92E0B821CDF8CEE00AD0FD5 /* srs_kernel_file.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = srs_kernel_file.hpp; path = kernel/srs_kernel_file.hpp; sourceTree = SOURCE_ROOT; };
+		C92E0B831CDF8CEE00AD0FD5 /* srs_kernel_flv.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = srs_kernel_flv.cpp; path = kernel/srs_kernel_flv.cpp; sourceTree = SOURCE_ROOT; };
+		C92E0B841CDF8CEE00AD0FD5 /* srs_kernel_flv.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = srs_kernel_flv.hpp; path = kernel/srs_kernel_flv.hpp; sourceTree = SOURCE_ROOT; };
+		C92E0B851CDF8CEE00AD0FD5 /* srs_kernel_log.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = srs_kernel_log.cpp; path = kernel/srs_kernel_log.cpp; sourceTree = SOURCE_ROOT; };
+		C92E0B861CDF8CEE00AD0FD5 /* srs_kernel_log.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = srs_kernel_log.hpp; path = kernel/srs_kernel_log.hpp; sourceTree = SOURCE_ROOT; };
+		C92E0B871CDF8CEE00AD0FD5 /* srs_kernel_mp3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = srs_kernel_mp3.cpp; path = kernel/srs_kernel_mp3.cpp; sourceTree = SOURCE_ROOT; };
+		C92E0B881CDF8CEE00AD0FD5 /* srs_kernel_mp3.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = srs_kernel_mp3.hpp; path = kernel/srs_kernel_mp3.hpp; sourceTree = SOURCE_ROOT; };
+		C92E0B891CDF8CEE00AD0FD5 /* srs_kernel_stream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = srs_kernel_stream.cpp; path = kernel/srs_kernel_stream.cpp; sourceTree = SOURCE_ROOT; };
+		C92E0B8A1CDF8CEE00AD0FD5 /* srs_kernel_stream.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = srs_kernel_stream.hpp; path = kernel/srs_kernel_stream.hpp; sourceTree = SOURCE_ROOT; };
+		C92E0B8B1CDF8CEE00AD0FD5 /* srs_kernel_ts.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = srs_kernel_ts.cpp; path = kernel/srs_kernel_ts.cpp; sourceTree = SOURCE_ROOT; };
+		C92E0B8C1CDF8CEE00AD0FD5 /* srs_kernel_ts.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = srs_kernel_ts.hpp; path = kernel/srs_kernel_ts.hpp; sourceTree = SOURCE_ROOT; };
+		C92E0B8D1CDF8CEE00AD0FD5 /* srs_kernel_utility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = srs_kernel_utility.cpp; path = kernel/srs_kernel_utility.cpp; sourceTree = SOURCE_ROOT; };
+		C92E0B8E1CDF8CEE00AD0FD5 /* srs_kernel_utility.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = srs_kernel_utility.hpp; path = kernel/srs_kernel_utility.hpp; sourceTree = SOURCE_ROOT; };
+		C92E0BA81CDF8EB200AD0FD5 /* srs_lib_bandwidth.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = srs_lib_bandwidth.cpp; path = libs/srs_lib_bandwidth.cpp; sourceTree = "<group>"; };
+		C92E0BA91CDF8EB200AD0FD5 /* srs_lib_bandwidth.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = srs_lib_bandwidth.hpp; path = libs/srs_lib_bandwidth.hpp; sourceTree = "<group>"; };
+		C92E0BAA1CDF8EB200AD0FD5 /* srs_lib_simple_socket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = srs_lib_simple_socket.cpp; path = libs/srs_lib_simple_socket.cpp; sourceTree = "<group>"; };
+		C92E0BAB1CDF8EB200AD0FD5 /* srs_lib_simple_socket.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = srs_lib_simple_socket.hpp; path = libs/srs_lib_simple_socket.hpp; sourceTree = "<group>"; };
+		C92E0BAC1CDF8EB200AD0FD5 /* srs_librtmp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = srs_librtmp.cpp; path = libs/srs_librtmp.cpp; sourceTree = "<group>"; };
+		C92E0BAD1CDF8EB200AD0FD5 /* srs_librtmp.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = srs_librtmp.hpp; path = libs/srs_librtmp.hpp; sourceTree = "<group>"; };
+		C92E0BB51CDF8ECD00AD0FD5 /* srs_http_stack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = srs_http_stack.cpp; path = protocol/srs_http_stack.cpp; sourceTree = "<group>"; };
+		C92E0BB61CDF8ECD00AD0FD5 /* srs_http_stack.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = srs_http_stack.hpp; path = protocol/srs_http_stack.hpp; sourceTree = "<group>"; };
+		C92E0BB71CDF8ECD00AD0FD5 /* srs_protocol_buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = srs_protocol_buffer.cpp; path = protocol/srs_protocol_buffer.cpp; sourceTree = "<group>"; };
+		C92E0BB81CDF8ECD00AD0FD5 /* srs_protocol_buffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = srs_protocol_buffer.hpp; path = protocol/srs_protocol_buffer.hpp; sourceTree = "<group>"; };
+		C92E0BB91CDF8ECD00AD0FD5 /* srs_protocol_json.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = srs_protocol_json.cpp; path = protocol/srs_protocol_json.cpp; sourceTree = "<group>"; };
+		C92E0BBA1CDF8ECD00AD0FD5 /* srs_protocol_json.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = srs_protocol_json.hpp; path = protocol/srs_protocol_json.hpp; sourceTree = "<group>"; };
+		C92E0BBB1CDF8ECD00AD0FD5 /* srs_protocol_kbps.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = srs_protocol_kbps.cpp; path = protocol/srs_protocol_kbps.cpp; sourceTree = "<group>"; };
+		C92E0BBC1CDF8ECD00AD0FD5 /* srs_protocol_kbps.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = srs_protocol_kbps.hpp; path = protocol/srs_protocol_kbps.hpp; sourceTree = "<group>"; };
+		C92E0BBD1CDF8ECD00AD0FD5 /* srs_raw_avc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = srs_raw_avc.cpp; path = protocol/srs_raw_avc.cpp; sourceTree = "<group>"; };
+		C92E0BBE1CDF8ECD00AD0FD5 /* srs_raw_avc.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = srs_raw_avc.hpp; path = protocol/srs_raw_avc.hpp; sourceTree = "<group>"; };
+		C92E0BBF1CDF8ECD00AD0FD5 /* srs_rtmp_amf0.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = srs_rtmp_amf0.cpp; path = protocol/srs_rtmp_amf0.cpp; sourceTree = "<group>"; };
+		C92E0BC01CDF8ECD00AD0FD5 /* srs_rtmp_amf0.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = srs_rtmp_amf0.hpp; path = protocol/srs_rtmp_amf0.hpp; sourceTree = "<group>"; };
+		C92E0BC11CDF8ECD00AD0FD5 /* srs_rtmp_handshake.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = srs_rtmp_handshake.cpp; path = protocol/srs_rtmp_handshake.cpp; sourceTree = "<group>"; };
+		C92E0BC21CDF8ECD00AD0FD5 /* srs_rtmp_handshake.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = srs_rtmp_handshake.hpp; path = protocol/srs_rtmp_handshake.hpp; sourceTree = "<group>"; };
+		C92E0BC31CDF8ECD00AD0FD5 /* srs_rtmp_io.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = srs_rtmp_io.cpp; path = protocol/srs_rtmp_io.cpp; sourceTree = "<group>"; };
+		C92E0BC41CDF8ECD00AD0FD5 /* srs_rtmp_io.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = srs_rtmp_io.hpp; path = protocol/srs_rtmp_io.hpp; sourceTree = "<group>"; };
+		C92E0BC51CDF8ECD00AD0FD5 /* srs_rtmp_msg_array.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = srs_rtmp_msg_array.cpp; path = protocol/srs_rtmp_msg_array.cpp; sourceTree = "<group>"; };
+		C92E0BC61CDF8ECD00AD0FD5 /* srs_rtmp_msg_array.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = srs_rtmp_msg_array.hpp; path = protocol/srs_rtmp_msg_array.hpp; sourceTree = "<group>"; };
+		C92E0BC71CDF8ECD00AD0FD5 /* srs_rtmp_stack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = srs_rtmp_stack.cpp; path = protocol/srs_rtmp_stack.cpp; sourceTree = "<group>"; };
+		C92E0BC81CDF8ECD00AD0FD5 /* srs_rtmp_stack.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = srs_rtmp_stack.hpp; path = protocol/srs_rtmp_stack.hpp; sourceTree = "<group>"; };
+		C92E0BC91CDF8ECD00AD0FD5 /* srs_rtmp_utility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = srs_rtmp_utility.cpp; path = protocol/srs_rtmp_utility.cpp; sourceTree = "<group>"; };
+		C92E0BCA1CDF8ECD00AD0FD5 /* srs_rtmp_utility.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = srs_rtmp_utility.hpp; path = protocol/srs_rtmp_utility.hpp; sourceTree = "<group>"; };
+		C92E0BCB1CDF8ECD00AD0FD5 /* srs_rtsp_stack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = srs_rtsp_stack.cpp; path = protocol/srs_rtsp_stack.cpp; sourceTree = "<group>"; };
+		C92E0BCC1CDF8ECD00AD0FD5 /* srs_rtsp_stack.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = srs_rtsp_stack.hpp; path = protocol/srs_rtsp_stack.hpp; sourceTree = "<group>"; };
+		C92E0BEB1CDF916B00AD0FD5 /* librtmp_ios.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = librtmp_ios.h; sourceTree = "<group>"; };
+		C92E0BED1CDF916B00AD0FD5 /* librtmp_ios.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = librtmp_ios.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C92E0B511CDF8BBD00AD0FD5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C92E0B4B1CDF8BBD00AD0FD5 = {
+			isa = PBXGroup;
+			children = (
+				C92E0BB41CDF8EBB00AD0FD5 /* protocol */,
+				C92E0BA71CDF8E9F00AD0FD5 /* lib */,
+				C92E0B761CDF8C7900AD0FD5 /* core */,
+				C92E0B561CDF8BBD00AD0FD5 /* kernel */,
+				C92E0BEA1CDF916B00AD0FD5 /* librtmp_ios */,
+				C92E0B551CDF8BBD00AD0FD5 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C92E0B551CDF8BBD00AD0FD5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C92E0B541CDF8BBD00AD0FD5 /* liblibrtmp.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C92E0B561CDF8BBD00AD0FD5 /* kernel */ = {
+			isa = PBXGroup;
+			children = (
+				C92E0B771CDF8CEE00AD0FD5 /* srs_kernel_aac.cpp */,
+				C92E0B781CDF8CEE00AD0FD5 /* srs_kernel_aac.hpp */,
+				C92E0B791CDF8CEE00AD0FD5 /* srs_kernel_buffer.cpp */,
+				C92E0B7A1CDF8CEE00AD0FD5 /* srs_kernel_buffer.hpp */,
+				C92E0B7B1CDF8CEE00AD0FD5 /* srs_kernel_codec.cpp */,
+				C92E0B7C1CDF8CEE00AD0FD5 /* srs_kernel_codec.hpp */,
+				C92E0B7D1CDF8CEE00AD0FD5 /* srs_kernel_consts.cpp */,
+				C92E0B7E1CDF8CEE00AD0FD5 /* srs_kernel_consts.hpp */,
+				C92E0B7F1CDF8CEE00AD0FD5 /* srs_kernel_error.cpp */,
+				C92E0B801CDF8CEE00AD0FD5 /* srs_kernel_error.hpp */,
+				C92E0B811CDF8CEE00AD0FD5 /* srs_kernel_file.cpp */,
+				C92E0B821CDF8CEE00AD0FD5 /* srs_kernel_file.hpp */,
+				C92E0B831CDF8CEE00AD0FD5 /* srs_kernel_flv.cpp */,
+				C92E0B841CDF8CEE00AD0FD5 /* srs_kernel_flv.hpp */,
+				C92E0B851CDF8CEE00AD0FD5 /* srs_kernel_log.cpp */,
+				C92E0B861CDF8CEE00AD0FD5 /* srs_kernel_log.hpp */,
+				C92E0B871CDF8CEE00AD0FD5 /* srs_kernel_mp3.cpp */,
+				C92E0B881CDF8CEE00AD0FD5 /* srs_kernel_mp3.hpp */,
+				C92E0B891CDF8CEE00AD0FD5 /* srs_kernel_stream.cpp */,
+				C92E0B8A1CDF8CEE00AD0FD5 /* srs_kernel_stream.hpp */,
+				C92E0B8B1CDF8CEE00AD0FD5 /* srs_kernel_ts.cpp */,
+				C92E0B8C1CDF8CEE00AD0FD5 /* srs_kernel_ts.hpp */,
+				C92E0B8D1CDF8CEE00AD0FD5 /* srs_kernel_utility.cpp */,
+				C92E0B8E1CDF8CEE00AD0FD5 /* srs_kernel_utility.hpp */,
+			);
+			name = kernel;
+			path = librtmp;
+			sourceTree = "<group>";
+		};
+		C92E0B761CDF8C7900AD0FD5 /* core */ = {
+			isa = PBXGroup;
+			children = (
+				C92E0B641CDF8C7500AD0FD5 /* srs_auto_headers.hpp */,
+				C92E0B651CDF8C7500AD0FD5 /* srs_core_autofree.cpp */,
+				C92E0B661CDF8C7500AD0FD5 /* srs_core_autofree.hpp */,
+				C92E0B671CDF8C7500AD0FD5 /* srs_core_mem_watch.cpp */,
+				C92E0B681CDF8C7500AD0FD5 /* srs_core_mem_watch.hpp */,
+				C92E0B691CDF8C7500AD0FD5 /* srs_core_performance.cpp */,
+				C92E0B6A1CDF8C7500AD0FD5 /* srs_core_performance.hpp */,
+				C92E0B6B1CDF8C7500AD0FD5 /* srs_core.cpp */,
+				C92E0B6C1CDF8C7500AD0FD5 /* srs_core.hpp */,
+			);
+			name = core;
+			sourceTree = "<group>";
+		};
+		C92E0BA71CDF8E9F00AD0FD5 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				C92E0BA81CDF8EB200AD0FD5 /* srs_lib_bandwidth.cpp */,
+				C92E0BA91CDF8EB200AD0FD5 /* srs_lib_bandwidth.hpp */,
+				C92E0BAA1CDF8EB200AD0FD5 /* srs_lib_simple_socket.cpp */,
+				C92E0BAB1CDF8EB200AD0FD5 /* srs_lib_simple_socket.hpp */,
+				C92E0BAC1CDF8EB200AD0FD5 /* srs_librtmp.cpp */,
+				C92E0BAD1CDF8EB200AD0FD5 /* srs_librtmp.hpp */,
+			);
+			name = lib;
+			sourceTree = "<group>";
+		};
+		C92E0BB41CDF8EBB00AD0FD5 /* protocol */ = {
+			isa = PBXGroup;
+			children = (
+				C92E0BB51CDF8ECD00AD0FD5 /* srs_http_stack.cpp */,
+				C92E0BB61CDF8ECD00AD0FD5 /* srs_http_stack.hpp */,
+				C92E0BB71CDF8ECD00AD0FD5 /* srs_protocol_buffer.cpp */,
+				C92E0BB81CDF8ECD00AD0FD5 /* srs_protocol_buffer.hpp */,
+				C92E0BB91CDF8ECD00AD0FD5 /* srs_protocol_json.cpp */,
+				C92E0BBA1CDF8ECD00AD0FD5 /* srs_protocol_json.hpp */,
+				C92E0BBB1CDF8ECD00AD0FD5 /* srs_protocol_kbps.cpp */,
+				C92E0BBC1CDF8ECD00AD0FD5 /* srs_protocol_kbps.hpp */,
+				C92E0BBD1CDF8ECD00AD0FD5 /* srs_raw_avc.cpp */,
+				C92E0BBE1CDF8ECD00AD0FD5 /* srs_raw_avc.hpp */,
+				C92E0BBF1CDF8ECD00AD0FD5 /* srs_rtmp_amf0.cpp */,
+				C92E0BC01CDF8ECD00AD0FD5 /* srs_rtmp_amf0.hpp */,
+				C92E0BC11CDF8ECD00AD0FD5 /* srs_rtmp_handshake.cpp */,
+				C92E0BC21CDF8ECD00AD0FD5 /* srs_rtmp_handshake.hpp */,
+				C92E0BC31CDF8ECD00AD0FD5 /* srs_rtmp_io.cpp */,
+				C92E0BC41CDF8ECD00AD0FD5 /* srs_rtmp_io.hpp */,
+				C92E0BC51CDF8ECD00AD0FD5 /* srs_rtmp_msg_array.cpp */,
+				C92E0BC61CDF8ECD00AD0FD5 /* srs_rtmp_msg_array.hpp */,
+				C92E0BC71CDF8ECD00AD0FD5 /* srs_rtmp_stack.cpp */,
+				C92E0BC81CDF8ECD00AD0FD5 /* srs_rtmp_stack.hpp */,
+				C92E0BC91CDF8ECD00AD0FD5 /* srs_rtmp_utility.cpp */,
+				C92E0BCA1CDF8ECD00AD0FD5 /* srs_rtmp_utility.hpp */,
+				C92E0BCB1CDF8ECD00AD0FD5 /* srs_rtsp_stack.cpp */,
+				C92E0BCC1CDF8ECD00AD0FD5 /* srs_rtsp_stack.hpp */,
+			);
+			name = protocol;
+			sourceTree = "<group>";
+		};
+		C92E0BEA1CDF916B00AD0FD5 /* librtmp_ios */ = {
+			isa = PBXGroup;
+			children = (
+				C92E0BEB1CDF916B00AD0FD5 /* librtmp_ios.h */,
+				C92E0BED1CDF916B00AD0FD5 /* librtmp_ios.m */,
+			);
+			path = librtmp_ios;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		C92E0B521CDF8BBD00AD0FD5 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C92E0B6D1CDF8C7500AD0FD5 /* srs_auto_headers.hpp in Headers */,
+				C92E0BD61CDF8ECD00AD0FD5 /* srs_raw_avc.hpp in Headers */,
+				C92E0B921CDF8CEE00AD0FD5 /* srs_kernel_buffer.hpp in Headers */,
+				C92E0BE01CDF8ECD00AD0FD5 /* srs_rtmp_stack.hpp in Headers */,
+				C92E0B711CDF8C7500AD0FD5 /* srs_core_mem_watch.hpp in Headers */,
+				C92E0BD01CDF8ECD00AD0FD5 /* srs_protocol_buffer.hpp in Headers */,
+				C92E0BA61CDF8CEE00AD0FD5 /* srs_kernel_utility.hpp in Headers */,
+				C92E0BE21CDF8ECD00AD0FD5 /* srs_rtmp_utility.hpp in Headers */,
+				C92E0B961CDF8CEE00AD0FD5 /* srs_kernel_consts.hpp in Headers */,
+				C92E0BDE1CDF8ECD00AD0FD5 /* srs_rtmp_msg_array.hpp in Headers */,
+				C92E0B6F1CDF8C7500AD0FD5 /* srs_core_autofree.hpp in Headers */,
+				C92E0BA41CDF8CEE00AD0FD5 /* srs_kernel_ts.hpp in Headers */,
+				C92E0B731CDF8C7500AD0FD5 /* srs_core_performance.hpp in Headers */,
+				C92E0BA21CDF8CEE00AD0FD5 /* srs_kernel_stream.hpp in Headers */,
+				C92E0B9A1CDF8CEE00AD0FD5 /* srs_kernel_file.hpp in Headers */,
+				C92E0BA01CDF8CEE00AD0FD5 /* srs_kernel_mp3.hpp in Headers */,
+				C92E0BD21CDF8ECD00AD0FD5 /* srs_protocol_json.hpp in Headers */,
+				C92E0BD81CDF8ECD00AD0FD5 /* srs_rtmp_amf0.hpp in Headers */,
+				C92E0B9E1CDF8CEE00AD0FD5 /* srs_kernel_log.hpp in Headers */,
+				C92E0B901CDF8CEE00AD0FD5 /* srs_kernel_aac.hpp in Headers */,
+				C92E0BAF1CDF8EB200AD0FD5 /* srs_lib_bandwidth.hpp in Headers */,
+				C92E0BB11CDF8EB200AD0FD5 /* srs_lib_simple_socket.hpp in Headers */,
+				C92E0B981CDF8CEE00AD0FD5 /* srs_kernel_error.hpp in Headers */,
+				C92E0BCE1CDF8ECD00AD0FD5 /* srs_http_stack.hpp in Headers */,
+				C92E0BD41CDF8ECD00AD0FD5 /* srs_protocol_kbps.hpp in Headers */,
+				C92E0BDC1CDF8ECD00AD0FD5 /* srs_rtmp_io.hpp in Headers */,
+				C92E0BDA1CDF8ECD00AD0FD5 /* srs_rtmp_handshake.hpp in Headers */,
+				C92E0B751CDF8C7500AD0FD5 /* srs_core.hpp in Headers */,
+				C92E0B941CDF8CEE00AD0FD5 /* srs_kernel_codec.hpp in Headers */,
+				C92E0BE41CDF8ECD00AD0FD5 /* srs_rtsp_stack.hpp in Headers */,
+				C92E0BB31CDF8EB200AD0FD5 /* srs_librtmp.hpp in Headers */,
+				C92E0B9C1CDF8CEE00AD0FD5 /* srs_kernel_flv.hpp in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		C92E0B531CDF8BBD00AD0FD5 /* librtmp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C92E0B5F1CDF8BBD00AD0FD5 /* Build configuration list for PBXNativeTarget "librtmp" */;
+			buildPhases = (
+				C92E0B501CDF8BBD00AD0FD5 /* Sources */,
+				C92E0B511CDF8BBD00AD0FD5 /* Frameworks */,
+				C92E0B521CDF8BBD00AD0FD5 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = librtmp;
+			productName = librtmp;
+			productReference = C92E0B541CDF8BBD00AD0FD5 /* liblibrtmp.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C92E0B4C1CDF8BBD00AD0FD5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = com.cqm;
+				TargetAttributes = {
+					C92E0B531CDF8BBD00AD0FD5 = {
+						CreatedOnToolsVersion = 7.3;
+					};
+				};
+			};
+			buildConfigurationList = C92E0B4F1CDF8BBD00AD0FD5 /* Build configuration list for PBXProject "librtmp" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = C92E0B4B1CDF8BBD00AD0FD5;
+			productRefGroup = C92E0B551CDF8BBD00AD0FD5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C92E0B531CDF8BBD00AD0FD5 /* librtmp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C92E0B501CDF8BBD00AD0FD5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C92E0BA31CDF8CEE00AD0FD5 /* srs_kernel_ts.cpp in Sources */,
+				C92E0B9D1CDF8CEE00AD0FD5 /* srs_kernel_log.cpp in Sources */,
+				C92E0BCF1CDF8ECD00AD0FD5 /* srs_protocol_buffer.cpp in Sources */,
+				C92E0BA51CDF8CEE00AD0FD5 /* srs_kernel_utility.cpp in Sources */,
+				C92E0B8F1CDF8CEE00AD0FD5 /* srs_kernel_aac.cpp in Sources */,
+				C92E0BAE1CDF8EB200AD0FD5 /* srs_lib_bandwidth.cpp in Sources */,
+				C92E0BD71CDF8ECD00AD0FD5 /* srs_rtmp_amf0.cpp in Sources */,
+				C92E0B931CDF8CEE00AD0FD5 /* srs_kernel_codec.cpp in Sources */,
+				C92E0BE11CDF8ECD00AD0FD5 /* srs_rtmp_utility.cpp in Sources */,
+				C92E0B6E1CDF8C7500AD0FD5 /* srs_core_autofree.cpp in Sources */,
+				C92E0BDD1CDF8ECD00AD0FD5 /* srs_rtmp_msg_array.cpp in Sources */,
+				C92E0BCD1CDF8ECD00AD0FD5 /* srs_http_stack.cpp in Sources */,
+				C92E0B991CDF8CEE00AD0FD5 /* srs_kernel_file.cpp in Sources */,
+				C92E0B741CDF8C7500AD0FD5 /* srs_core.cpp in Sources */,
+				C92E0B701CDF8C7500AD0FD5 /* srs_core_mem_watch.cpp in Sources */,
+				C92E0BB21CDF8EB200AD0FD5 /* srs_librtmp.cpp in Sources */,
+				C92E0B9F1CDF8CEE00AD0FD5 /* srs_kernel_mp3.cpp in Sources */,
+				C92E0BDF1CDF8ECD00AD0FD5 /* srs_rtmp_stack.cpp in Sources */,
+				C92E0BD11CDF8ECD00AD0FD5 /* srs_protocol_json.cpp in Sources */,
+				C92E0B721CDF8C7500AD0FD5 /* srs_core_performance.cpp in Sources */,
+				C92E0BE31CDF8ECD00AD0FD5 /* srs_rtsp_stack.cpp in Sources */,
+				C92E0B9B1CDF8CEE00AD0FD5 /* srs_kernel_flv.cpp in Sources */,
+				C92E0BB01CDF8EB200AD0FD5 /* srs_lib_simple_socket.cpp in Sources */,
+				C92E0BD91CDF8ECD00AD0FD5 /* srs_rtmp_handshake.cpp in Sources */,
+				C92E0BD51CDF8ECD00AD0FD5 /* srs_raw_avc.cpp in Sources */,
+				C92E0B971CDF8CEE00AD0FD5 /* srs_kernel_error.cpp in Sources */,
+				C92E0BA11CDF8CEE00AD0FD5 /* srs_kernel_stream.cpp in Sources */,
+				C92E0B911CDF8CEE00AD0FD5 /* srs_kernel_buffer.cpp in Sources */,
+				C92E0B951CDF8CEE00AD0FD5 /* srs_kernel_consts.cpp in Sources */,
+				C92E0BD31CDF8ECD00AD0FD5 /* srs_protocol_kbps.cpp in Sources */,
+				C92E0BDB1CDF8ECD00AD0FD5 /* srs_rtmp_io.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		C92E0B5D1CDF8BBD00AD0FD5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++98";
+				CLANG_CXX_LIBRARY = "libstdc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_INVALID_OFFSETOF_MACRO = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		C92E0B5E1CDF8BBD00AD0FD5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++98";
+				CLANG_CXX_LIBRARY = "libstdc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_INVALID_OFFSETOF_MACRO = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		C92E0B601CDF8BBD00AD0FD5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		C92E0B611CDF8BBD00AD0FD5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C92E0B4F1CDF8BBD00AD0FD5 /* Build configuration list for PBXProject "librtmp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C92E0B5D1CDF8BBD00AD0FD5 /* Debug */,
+				C92E0B5E1CDF8BBD00AD0FD5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C92E0B5F1CDF8BBD00AD0FD5 /* Build configuration list for PBXNativeTarget "librtmp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C92E0B601CDF8BBD00AD0FD5 /* Debug */,
+				C92E0B611CDF8BBD00AD0FD5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C92E0B4C1CDF8BBD00AD0FD5 /* Project object */;
+}

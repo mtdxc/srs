@@ -152,6 +152,7 @@ struct iovec
 #include <sys/uio.h>
 #include <inttypes.h>
 typedef int* sockopt_t;
+#define O_BINARY 0
 #endif
 
 #include <assert.h>

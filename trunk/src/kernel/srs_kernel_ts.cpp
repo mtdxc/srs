@@ -3251,7 +3251,7 @@ int SrsTsWriter::write_video(int tsp, const char* data, int len, bool bKey)
   video.write_pcr = bKey;
   video.start_pts = video.dts = video.pts = tsp * 90;
   video.sid = SrsTsPESStreamIdVideoCommon;
-  // 普通nal 00000001头部
+  // must have 264 nal header 00000001
   video.payload->append(data, len);
   return SrsTSMuxer::write_video(&video);
 }
@@ -3263,12 +3263,12 @@ int SrsTsWriter::write_audio(int tsp, const char* data, int len)
   audio.write_pcr = false;
   audio.dts = audio.pts = audio.start_pts = tsp * 90;
   audio.sid = SrsTsPESStreamIdAudioCommon;
-  // 必须带adts头部
+  // must have adts header
   audio.payload->append(data, len);
   return SrsTSMuxer::write_audio(&audio);
 }
 
-#include "srs_librtmp.hpp"
+#include "../libs/srs_librtmp.hpp"
 int srs_flv2ts(const char* flvPath, const char* dst)
 {
   srs_flv_t flv = srs_flv_open_read(flvPath);

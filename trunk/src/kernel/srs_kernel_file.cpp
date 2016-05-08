@@ -30,8 +30,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define _open ::open
 #define _close ::close
 #define _lseek ::lseek
-#define _lread ::read
-#define _lwrite ::write
+#define _read ::read
+#define _write ::write
 #else
 #include <io.h>
 #endif
