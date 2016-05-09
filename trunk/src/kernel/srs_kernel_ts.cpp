@@ -2769,6 +2769,11 @@ SrsCodecVideo SrsTSMuxer::video_codec()
     return vcodec;
 }
 
+SrsCodecAudio SrsTSMuxer::audio_codec()
+{
+    return acodec;
+}
+
 SrsTsCache::SrsTsCache()
 {
     audio = NULL;
@@ -3235,7 +3240,8 @@ int SrsTsEncoder::flush_video()
 SrsTsWriter::SrsTsWriter(SrsCodecAudio ac, SrsCodecVideo vc) :
 SrsTSMuxer(new SrsFileWriter(), new SrsTsContext(), ac, vc)
 {
-
+  audio_frames = video_frames = 0;
+  fist_tsp = 0;
 }
 
 SrsTsWriter::~SrsTsWriter()
@@ -3245,7 +3251,7 @@ SrsTsWriter::~SrsTsWriter()
   srs_freep(writer);
 }
 
-int SrsTsWriter::write_video(int tsp, const char* data, int len, bool bKey)
+int SrsTsWriter::write_video(int64_t tsp, const char* data, int len, bool bKey)
 {
   SrsTsMessage video;
   video.write_pcr = bKey;
@@ -3253,10 +3259,13 @@ int SrsTsWriter::write_video(int tsp, const char* data, int len, bool bKey)
   video.sid = SrsTsPESStreamIdVideoCommon;
   // must have 264 nal header 00000001
   video.payload->append(data, len);
+  if (!fist_tsp)
+    fist_tsp = tsp;
+  video_frames++;
   return SrsTSMuxer::write_video(&video);
 }
 
-int SrsTsWriter::write_audio(int tsp, const char* data, int len)
+int SrsTsWriter::write_audio(int64_t tsp, const char* data, int len)
 {
   //muxer->update_acodec(SrsCodecAudioAAC);
   SrsTsMessage audio;
@@ -3265,6 +3274,9 @@ int SrsTsWriter::write_audio(int tsp, const char* data, int len)
   audio.sid = SrsTsPESStreamIdAudioCommon;
   // must have adts header
   audio.payload->append(data, len);
+  if (!fist_tsp)
+    fist_tsp = tsp;
+  audio_frames++;
   return SrsTSMuxer::write_audio(&audio);
 }
 

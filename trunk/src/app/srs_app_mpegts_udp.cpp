@@ -26,9 +26,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #ifdef SRS_AUTO_STREAM_CASTER
 
 #include <stdlib.h>
+#ifndef _WIN32
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#else
+#include <winsock.h>
+#endif
 using namespace std;
 
 #include <srs_app_config.hpp>

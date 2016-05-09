@@ -1,4 +1,4 @@
-/*
+ï»¿/*
 The MIT License (MIT)
 
 Copyright (c) 2013-2015 SRS(ossrs)
@@ -1595,6 +1595,7 @@ public:
      * get the video codec of ts muxer.
      */
     virtual SrsCodecVideo video_codec();
+    virtual SrsCodecAudio audio_codec();
 };
 // add by caiqm
 class SrsTsWriter :public SrsTSMuxer{
@@ -1602,10 +1603,13 @@ public:
   SrsTsWriter(SrsCodecAudio ac, SrsCodecVideo vc);
   virtual ~SrsTsWriter();
 
-  // ±ØĞëĞ¯´ø264 NALÍ·²¿
-  int write_video(int tsp,const char* data, int len, bool bKey);
-  // ±ØĞë´øAACÍ·²¿
-  int write_audio(int tsp,const char* data, int len);
+  // å¿…é¡»æºå¸¦264 NALå¤´éƒ¨
+  int write_video(int64_t tsp, const char* data, int len, bool bKey);
+  // å¿…é¡»å¸¦AACå¤´éƒ¨
+  int write_audio(int64_t tsp, const char* data, int len);
+  int audio_frames;
+  int video_frames;
+  int64_t fist_tsp;
 };
 
 /**
