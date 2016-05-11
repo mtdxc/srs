@@ -1607,9 +1607,12 @@ public:
   int write_video(int64_t tsp, const char* data, int len, bool bKey);
   // 必须带AAC头部
   int write_audio(int64_t tsp, const char* data, int len);
+  int64_t duration(int64_t ltsp);
+  inline int64_t duration(){return duration(-1);}
   int audio_frames;
   int video_frames;
   int64_t fist_tsp;
+  int64_t last_tsp;
 };
 
 /**

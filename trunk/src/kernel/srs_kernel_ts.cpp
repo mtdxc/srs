@@ -3241,7 +3241,7 @@ SrsTsWriter::SrsTsWriter(SrsCodecAudio ac, SrsCodecVideo vc) :
 SrsTSMuxer(new SrsFileWriter(), new SrsTsContext(), ac, vc)
 {
   audio_frames = video_frames = 0;
-  fist_tsp = 0;
+  last_tsp = fist_tsp = 0;
 }
 
 SrsTsWriter::~SrsTsWriter()
@@ -3261,6 +3261,7 @@ int SrsTsWriter::write_video(int64_t tsp, const char* data, int len, bool bKey)
   video.payload->append(data, len);
   if (!fist_tsp)
     fist_tsp = tsp;
+  last_tsp = tsp;
   video_frames++;
   return SrsTSMuxer::write_video(&video);
 }
@@ -3276,8 +3277,16 @@ int SrsTsWriter::write_audio(int64_t tsp, const char* data, int len)
   audio.payload->append(data, len);
   if (!fist_tsp)
     fist_tsp = tsp;
+  last_tsp = tsp;
   audio_frames++;
   return SrsTSMuxer::write_audio(&audio);
+}
+
+int64_t SrsTsWriter::duration(int64_t ltsp)
+{
+  if (!fist_tsp) return 0;
+  if (ltsp < 0) return last_tsp - fist_tsp;
+  return ltsp - fist_tsp;
 }
 
 #include "../libs/srs_librtmp.hpp"
