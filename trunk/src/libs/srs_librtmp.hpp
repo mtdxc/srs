@@ -68,7 +68,7 @@ extern int srs_version_revision();
 // the RTMP handler.
 typedef void* srs_rtmp_t;
 typedef void* srs_amf0_t;
-
+typedef void* srs_flv_t;
 /**
 * create/destroy a rtmp protocol stack.
 * @url rtmp url, for example: 
@@ -310,6 +310,10 @@ extern int srs_audio_write_raw_frame(srs_rtmp_t rtmp,
     char sound_format, char sound_rate, char sound_size, char sound_type,
     char* frame, int frame_size, u_int32_t timestamp
 );
+extern int srs_flv_audio_write_raw_frame(srs_flv_t rtmp,
+  char sound_format, char sound_rate, char sound_size, char sound_type,
+  char* frame, int frame_size, u_int32_t timestamp
+  );
 
 /**
 * whether aac raw data is in adts format,
@@ -396,6 +400,9 @@ User also can send one by one:
 extern int srs_h264_write_raw_frames(srs_rtmp_t rtmp, 
     char* frames, int frames_size, u_int32_t dts, u_int32_t pts
 );
+extern int srs_flv_h264_write_raw_frames(srs_flv_t rtmp,
+  char* frames, int frames_size, u_int32_t dts, u_int32_t pts
+  );
 /**
 * whether error_code is dvbsp(drop video before sps/pps/sequence-header) error.
 *
@@ -448,11 +455,12 @@ extern srs_bool srs_h264_startswith_annexb(
 * @example /trunk/research/librtmp/srs_ingest_rtmp.c
 **************************************************************
 *************************************************************/
-typedef void* srs_flv_t;
+
 /* open flv file for both read/write. */
 extern srs_flv_t srs_flv_open_read(const char* file);
 extern srs_flv_t srs_flv_open_write(const char* file);
 extern void srs_flv_close(srs_flv_t flv);
+// add by caiqm
 extern int srs_flv2ts(const char* flvPath, const char* dst);
 /**
 * read the flv header. 9bytes header. 
@@ -501,6 +509,8 @@ extern int srs_flv_read_tag_data(srs_flv_t flv, char* data, int32_t size);
 * @remark, auto write the 4bytes zero previous tag size.
 */
 extern int srs_flv_write_header(srs_flv_t flv, char header[9]);
+extern int srs_flv_write_header2(srs_flv_t flv, bool audio, bool video);
+
 /**
 * write the flv tag to file.
 *

@@ -138,7 +138,8 @@ int SrsRawH264Stream::pps_demux(char* frame, int nb_frame, string& pps)
     return ret;
 }
 
-int SrsRawH264Stream::mux_sequence_header(string sps, string pps, u_int32_t dts, u_int32_t pts, string& sh)
+int SrsRawH264Stream::mux_sequence_header(const std::string& sps, const std::string& pps, 
+  u_int32_t dts, u_int32_t pts, string& sh)
 {
     int ret = ERROR_SUCCESS;
 
@@ -261,7 +262,11 @@ int SrsRawH264Stream::mux_ipb_frame(char* frame, int nb_frame, string& ibp)
     return ret;
 }
 
-int SrsRawH264Stream::mux_avc2flv(string video, int8_t frame_type, int8_t avc_packet_type, u_int32_t dts, u_int32_t pts, char** flv, int* nb_flv)
+int SrsRawH264Stream::mux_avc2flv(const std::string& video, int8_t frame_type, int8_t avc_packet_type, u_int32_t dts, u_int32_t pts, char** flv, int* nb_flv){
+    return mux_avc2flv(video.data(), video.length(), frame_type, avc_packet_type, dts, pts, flv, nb_flv);
+}
+
+int SrsRawH264Stream::mux_avc2flv(const char* buff, int len, int8_t frame_type, int8_t avc_packet_type, u_int32_t dts, u_int32_t pts, char** flv, int* nb_flv)
 {
     int ret = ERROR_SUCCESS;
     
@@ -270,7 +275,7 @@ int SrsRawH264Stream::mux_avc2flv(string video, int8_t frame_type, int8_t avc_pa
     //      1bytes, AVCPacketType
     //      3bytes, CompositionTime, the cts.
     // @see: E.4.3 Video Tags, video_file_format_spec_v10_1.pdf, page 78
-    int size = (int)video.length() + 5;
+    int size = (int)len + 5;
     char* data = new char[size];
     char* p = data;
     
@@ -294,7 +299,7 @@ int SrsRawH264Stream::mux_avc2flv(string video, int8_t frame_type, int8_t avc_pa
     *p++ = pp[0];
     
     // h.264 raw data.
-    memcpy(p, video.data(), video.length());
+    memcpy(p, buff, len);
 
     *flv = data;
     *nb_flv = size;

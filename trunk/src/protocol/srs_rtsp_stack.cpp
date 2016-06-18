@@ -161,6 +161,9 @@ void SrsRtpPacket::copy(SrsRtpPacket* src)
 
     chunked = src->chunked;
     completed = src->completed;
+
+    // fixe memory leak
+    srs_freep(audio_samples);
     audio_samples = new SrsCodecSample();
 }
 

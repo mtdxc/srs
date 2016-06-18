@@ -1,4 +1,4 @@
-/*
+﻿/*
 The MIT License (MIT)
 
 Copyright (c) 2013-2015 SRS(ossrs)
@@ -50,15 +50,67 @@ using namespace std;
 #include <srs_kernel_file.hpp>
 #include <srs_lib_bandwidth.hpp>
 #include <srs_raw_avc.hpp>
-
+#include <srs_kernel_buffer.hpp>
 // kernel module.
 ISrsLog* _srs_log = new ISrsLog();
 ISrsThreadContext* _srs_context = new ISrsThreadContext();
 
+struct RawListener{
+  // use must use srs_freepa(data) to free the data
+  virtual int OnGotFrame(char type, u_int32_t timestamp, char* data, int size) = 0;
+};
+
+// 将裸数据转成本库内部使用的包结构
+struct RawContext{
+  RawContext(RawListener* rl) {
+    h264_sps_pps_sent = false;
+    h264_sps_changed = false;
+    h264_pps_changed = false;
+    listener = rl;
+  }
+  /*
+  typedef void(*pFnGotFrame)(char type, u_int32_t timestamp, char* data, int size, void* userdata);
+  pFnGotFrame fnGotFrame;
+  void* userdata;
+  */
+  RawListener* listener;
+  int GotFrame(int type, u_int32_t timestamp, char* data, int size){
+    int ret = ERROR_SUCCESS;
+    if (listener)
+      listener->OnGotFrame(type, timestamp, data, size);
+    else
+      srs_freepa(data);
+    return ret;
+  }
+
+  // the remux raw codec.
+  SrsRawH264Stream avc_raw;
+  SrsRawAacStream aac_raw;
+
+  // for h264 raw stream, 
+  // @see: https://github.com/ossrs/srs/issues/66#issuecomment-62240521
+  SrsStream h264_raw_stream;
+  // about SPS, @see: 7.3.2.1.1, H.264-AVC-ISO_IEC_14496-10-2012.pdf, page 62
+  std::string h264_sps;
+  std::string h264_pps;
+  // whether the sps and pps sent,
+  // @see https://github.com/ossrs/srs/issues/203
+  bool h264_sps_pps_sent;
+  // only send the ssp and pps when both changed.
+  // @see https://github.com/ossrs/srs/issues/204
+  bool h264_sps_changed;
+  bool h264_pps_changed;
+  // for aac raw stream,
+  // @see: https://github.com/ossrs/srs/issues/212#issuecomment-64146250
+  SrsStream aac_raw_stream;
+  // the aac sequence header.
+  std::string aac_specific_config;
+};
+
 /**
 * export runtime context.
 */
-struct Context
+struct Context:public RawListener
 {
     std::string url;
     std::string tcUrl;
@@ -82,38 +134,18 @@ struct Context
     SrsRtmpClient* rtmp;
     SimpleSocketStream* skt;
     int stream_id;
-    
-    // the remux raw codec.
-    SrsRawH264Stream avc_raw;
-    SrsRawAacStream aac_raw;
 
-    // for h264 raw stream, 
-    // @see: https://github.com/ossrs/srs/issues/66#issuecomment-62240521
-    SrsStream h264_raw_stream;
-    // about SPS, @see: 7.3.2.1.1, H.264-AVC-ISO_IEC_14496-10-2012.pdf, page 62
-    std::string h264_sps;
-    std::string h264_pps;
-    // whether the sps and pps sent,
-    // @see https://github.com/ossrs/srs/issues/203
-    bool h264_sps_pps_sent;
-    // only send the ssp and pps when both changed.
-    // @see https://github.com/ossrs/srs/issues/204
-    bool h264_sps_changed;
-    bool h264_pps_changed;
-    // for aac raw stream,
-    // @see: https://github.com/ossrs/srs/issues/212#issuecomment-64146250
-    SrsStream aac_raw_stream;
-    // the aac sequence header.
-    std::string aac_specific_config;
-    
-    Context() {
+    // add by caiqm
+    RawContext raw;
+    virtual int OnGotFrame(char type, u_int32_t timestamp, char* data, int size){
+      return srs_rtmp_write_packet(this, type, timestamp, data, size);
+    }
+
+    Context():raw(this) {
         rtmp = NULL;
         skt = NULL;
         req = NULL;
         stream_id = 0;
-        h264_sps_pps_sent = false;
-        h264_sps_changed = false;
-        h264_pps_changed = false;
     }
     virtual ~Context() {
         srs_freep(req);
@@ -332,6 +364,8 @@ int srs_librtmp_context_connect(Context* context)
 #ifdef __cplusplus
 extern "C"{
 #endif
+
+int srs_raw_write_h264_frames(RawContext* context, char* frames, int frames_size, u_int32_t dts, u_int32_t pts);
 
 int srs_version_major()
 {
@@ -884,24 +918,23 @@ srs_bool srs_rtmp_is_onMetaData(char type, char* data, int size)
 /**
 * directly write a audio frame.
 */
-int srs_write_audio_raw_frame(Context* context,
+int srs_write_audio_raw_frame(RawContext* context,
     char* frame, int frame_size, SrsRawAacStreamCodec* codec, u_int32_t timestamp
 ) {
     int ret = ERROR_SUCCESS;
-
     char* data = NULL;
     int size = 0;
     if ((ret = context->aac_raw.mux_aac2flv(frame, frame_size, codec, timestamp, &data, &size)) != ERROR_SUCCESS) {
         return ret;
     }
-    
-    return srs_rtmp_write_packet(context, SRS_RTMP_TYPE_AUDIO, timestamp, data, size);
+    return context->GotFrame(SRS_RTMP_TYPE_AUDIO, timestamp, data, size);
+    //return srs_rtmp_write_packet(context, SRS_RTMP_TYPE_AUDIO, timestamp, data, size);
 }
 
 /**
 * write aac frame in adts.
 */
-int srs_write_aac_adts_frame(Context* context, 
+int srs_write_aac_adts_frame(RawContext* context, 
     SrsRawAacStreamCodec* codec, char* frame, int frame_size, u_int32_t timestamp
 ) {
     int ret = ERROR_SUCCESS;
@@ -928,7 +961,7 @@ int srs_write_aac_adts_frame(Context* context,
 /**
 * write aac frames in adts.
 */
-int srs_write_aac_adts_frames(Context* context,
+int srs_write_aac_adts_frames(RawContext* context,
     char sound_format, char sound_rate, char sound_size, char sound_type,
     char* frames, int frames_size, u_int32_t timestamp
 ) {
@@ -961,18 +994,12 @@ int srs_write_aac_adts_frames(Context* context,
     return ret;
 }
 
-/**
-* write audio raw frame to SRS.
-*/
-int srs_audio_write_raw_frame(srs_rtmp_t rtmp, 
+int srs_raw_write_audio_frame(RawContext* context,
     char sound_format, char sound_rate, char sound_size, char sound_type,
     char* frame, int frame_size, u_int32_t timestamp
 ) {
     int ret = ERROR_SUCCESS;
-    
-    Context* context = (Context*)rtmp;
-    srs_assert(context);
-    
+        
     if (sound_format == SrsCodecAudioAAC) {
         // for aac, the frame must be ADTS format.
         if (!srs_aac_is_adts(frame, frame_size)) {
@@ -995,9 +1022,19 @@ int srs_audio_write_raw_frame(srs_rtmp_t rtmp,
         // for other data, directly write frame.
         return srs_write_audio_raw_frame(context, frame, frame_size, &codec, timestamp);
     }
-    
-    
     return ret;
+}
+/**
+* write audio raw frame to SRS.
+*/
+int srs_audio_write_raw_frame(srs_rtmp_t rtmp,
+  char sound_format, char sound_rate, char sound_size, char sound_type,
+  char* frame, int frame_size, u_int32_t timestamp
+  ) {
+  RawContext* context = &((Context*)rtmp)->raw;
+  srs_assert(context);
+  return srs_raw_write_audio_frame(context, sound_format, sound_rate, sound_size, sound_type,
+    frame, frame_size, timestamp);
 }
 
 /**
@@ -1045,7 +1082,7 @@ int srs_aac_adts_frame_size(char* aac_raw_data, int ac_raw_size)
 /**
 * write h264 IPB-frame.
 */
-int srs_write_h264_ipb_frame(Context* context, 
+int srs_write_h264_ipb_frame(RawContext* context, 
     char* frame, int frame_size, u_int32_t dts, u_int32_t pts
 ) {
     int ret = ERROR_SUCCESS;
@@ -1078,16 +1115,17 @@ int srs_write_h264_ipb_frame(Context* context,
     if ((ret = context->avc_raw.mux_avc2flv(ibp, frame_type, avc_packet_type, dts, pts, &flv, &nb_flv)) != ERROR_SUCCESS) {
         return ret;
     }
-    
+
     // the timestamp in rtmp message header is dts.
     u_int32_t timestamp = dts;
-    return srs_rtmp_write_packet(context, SRS_RTMP_TYPE_VIDEO, timestamp, flv, nb_flv);
+    return context->GotFrame(SRS_RTMP_TYPE_VIDEO, timestamp, flv, nb_flv);
+    //return srs_rtmp_write_packet(context, SRS_RTMP_TYPE_VIDEO, timestamp, flv, nb_flv);    
 }
 
 /**
 * write the h264 sps/pps in context over RTMP.
 */
-int srs_write_h264_sps_pps(Context* context, u_int32_t dts, u_int32_t pts)
+int srs_write_h264_sps_pps(RawContext* context, u_int32_t dts, u_int32_t pts)
 {
     int ret = ERROR_SUCCESS;
     
@@ -1115,16 +1153,17 @@ int srs_write_h264_sps_pps(Context* context, u_int32_t dts, u_int32_t pts)
     context->h264_sps_changed = false;
     context->h264_pps_changed = false;
     context->h264_sps_pps_sent = true;
-    
+
     // the timestamp in rtmp message header is dts.
     u_int32_t timestamp = dts;
-    return srs_rtmp_write_packet(context, SRS_RTMP_TYPE_VIDEO, timestamp, flv, nb_flv);
+    return context->GotFrame(SRS_RTMP_TYPE_VIDEO, timestamp, flv, nb_flv);
+    //return srs_rtmp_write_packet(context, SRS_RTMP_TYPE_VIDEO, timestamp, flv, nb_flv);
 }
 
 /**
 * write h264 raw frame, maybe sps/pps/IPB-frame.
 */
-int srs_write_h264_raw_frame(Context* context, 
+int srs_write_h264_raw_frame(RawContext* context, 
     char* frame, int frame_size, u_int32_t dts, u_int32_t pts
 ) {
     int ret = ERROR_SUCCESS;
@@ -1173,58 +1212,57 @@ int srs_write_h264_raw_frame(Context* context,
 /**
 * write h264 multiple frames, in annexb format.
 */
-int srs_h264_write_raw_frames(srs_rtmp_t rtmp, 
-    char* frames, int frames_size, u_int32_t dts, u_int32_t pts
-) {
-    int ret = ERROR_SUCCESS;
-    
-    srs_assert(frames != NULL);
-    srs_assert(frames_size > 0);
-    
-    srs_assert(rtmp != NULL);
-    Context* context = (Context*)rtmp;
-    
-    if ((ret = context->h264_raw_stream.initialize(frames, frames_size)) != ERROR_SUCCESS) {
-        return ret;
-    }
-    
-    // use the last error
-    // @see https://github.com/ossrs/srs/issues/203
-    // @see https://github.com/ossrs/srs/issues/204
-    int error_code_return = ret;
-    
-    // send each frame.
-    while (!context->h264_raw_stream.empty()) {
-        char* frame = NULL;
-        int frame_size = 0;
-        if ((ret = context->avc_raw.annexb_demux(&context->h264_raw_stream, &frame, &frame_size)) != ERROR_SUCCESS) {
-            return ret;
-        }
-    
-        // ignore invalid frame,
-        // atleast 1bytes for SPS to decode the type
-        if (frame_size <= 0) {
-            continue;
-        }
+int srs_h264_write_raw_frames(srs_rtmp_t rtmp,
+  char* frames, int frames_size, u_int32_t dts, u_int32_t pts
+  ) {
+  srs_assert(frames != NULL);
+  srs_assert(frames_size > 0);
 
-        // it may be return error, but we must process all packets.
-        if ((ret = srs_write_h264_raw_frame(context, frame, frame_size, dts, pts)) != ERROR_SUCCESS) {
-            error_code_return = ret;
-            
-            // ignore known error, process all packets.
-            if (srs_h264_is_dvbsp_error(ret)
-                || srs_h264_is_duplicated_sps_error(ret)
-                || srs_h264_is_duplicated_pps_error(ret)
-            ) {
-                continue;
-            }
-            
-            return ret;
-        }
+  srs_assert(rtmp != NULL);
+  RawContext* context = &((Context*)rtmp)->raw;
+  // return srs_raw_write_h264_frames(context, frames, frames_size, dts, pts);
+
+  int ret = ERROR_SUCCESS;
+  if ((ret = context->h264_raw_stream.initialize(frames, frames_size)) != ERROR_SUCCESS) {
+    return ret;
+  }
+
+  // use the last error
+  // @see https://github.com/ossrs/srs/issues/203
+  // @see https://github.com/ossrs/srs/issues/204
+  int error_code_return = ret;
+  // send each frame.
+  while (!context->h264_raw_stream.empty()) {
+    char* frame = NULL;
+    int frame_size = 0;
+    if ((ret = context->avc_raw.annexb_demux(&context->h264_raw_stream, &frame, &frame_size)) != ERROR_SUCCESS) {
+      return ret;
     }
-    
-    return error_code_return;
+
+    // ignore invalid frame,
+    // atleast 1bytes for SPS to decode the type
+    if (frame_size <= 0) {
+      continue;
+    }
+
+    // it may be return error, but we must process all packets.
+    if ((ret = srs_write_h264_raw_frame(context, frame, frame_size, dts, pts)) != ERROR_SUCCESS) {
+      error_code_return = ret;
+
+      // ignore known error, process all packets.
+      if (srs_h264_is_dvbsp_error(ret)
+        || srs_h264_is_duplicated_sps_error(ret)
+        || srs_h264_is_duplicated_pps_error(ret)
+        ) {
+        continue;
+      }
+
+      return ret;
+    }
+  }
+  return error_code_return;
 }
+
 
 srs_bool srs_h264_is_dvbsp_error(int error_code)
 {
@@ -1251,12 +1289,20 @@ srs_bool srs_h264_startswith_annexb(char* h264_raw_data, int h264_raw_size, int*
     return srs_avc_startswith_annexb(&stream, pnb_start_code);
 }
 
-struct FlvContext
+struct FlvContext:public RawListener
 {
     SrsFileReader reader;
     SrsFileWriter writer;
     SrsFlvEncoder enc;
     SrsFlvDecoder dec;
+    RawContext raw;
+    virtual int OnGotFrame(char type, u_int32_t timestamp, char* data, int size){
+      int ret = srs_flv_write_tag(this, type, timestamp, data, size);
+      srs_freepa(data);
+      return ret;
+    }
+    FlvContext():raw(this){
+    }
 };
 
 srs_flv_t srs_flv_open_read(const char* file)
@@ -1379,6 +1425,135 @@ int srs_flv_write_header(srs_flv_t flv, char header[9])
     }
     
     return ret;
+}
+
+/**
+* write audio raw frame to FLV.
+*/
+int srs_flv_audio_write_raw_frame(srs_flv_t rtmp,
+  char sound_format, char sound_rate, char sound_size, char sound_type,
+  char* frame, int frame_size, u_int32_t timestamp
+  ) {
+  RawContext* context = &((FlvContext*)rtmp)->raw;
+  srs_assert(context);
+  return srs_raw_write_audio_frame(context, sound_format, sound_rate, sound_size, sound_type,
+    frame, frame_size, timestamp);
+}
+
+int srs_flv_h264_write_raw_frames(srs_flv_t flv,
+  char* frames, int frames_size, u_int32_t dts, u_int32_t pts
+  ) {
+  srs_assert(frames != NULL);
+  srs_assert(frames_size > 0);
+
+  srs_assert(flv != NULL);
+  RawContext* context = &((FlvContext*)flv)->raw;
+  return srs_raw_write_h264_frames(context, frames, frames_size, dts, pts);
+}
+
+int srs_raw_write_h264_frames(RawContext* context, char* frames, int frames_size, u_int32_t dts, u_int32_t pts){
+  int ret = ERROR_SUCCESS;
+  if ((ret = context->h264_raw_stream.initialize(frames, frames_size)) != ERROR_SUCCESS) {
+    return ret;
+  }
+
+  SrsSimpleBuffer buffer;
+  SrsCodecSample sample;
+  sample.is_video = true;
+  sample.cts = pts;
+  std::string tmp;
+  SrsAvcAacCodec::avc_demux_annexb_format(&context->h264_raw_stream, &sample);
+  for (int i = 0; i < sample.nb_sample_units; i++)
+  {
+    SrsCodecSampleUnit& su = sample.sample_units[i];
+    SrsAvcNaluType nal_unit_type = (SrsAvcNaluType)(su.bytes[0] & 0x1f);
+    switch (nal_unit_type)
+    {
+    case SrsAvcNaluTypeSPS:
+      // for sps
+      if ((ret = context->avc_raw.sps_demux(su.bytes, su.size, tmp)) != ERROR_SUCCESS) {
+        return ret;
+      }
+
+      if (context->h264_sps != tmp) {
+        context->h264_sps_changed = true;
+        context->h264_sps = tmp;
+        //return ERROR_H264_DUPLICATED_SPS;
+      }
+      break;
+    case SrsAvcNaluTypePPS:
+      // for pps
+      if ((ret = context->avc_raw.pps_demux(su.bytes, su.size, tmp)) != ERROR_SUCCESS) {
+        return ret;
+      }
+
+      if (context->h264_pps != tmp) {
+        context->h264_pps_changed = true;
+        context->h264_pps = tmp;
+        //return ERROR_H264_DUPLICATED_PPS;
+      }
+      break;
+    default:
+      break;
+    }
+    {/* flv必须合成一个包发送否则会出现解码错误，但直播代码不是这么写的
+     QQ播放器好像不识别SrsCodecVideoAVCTypeSequenceHeader(FFmpeg就行!),
+     还必须把sps和pps再次打包到NAL中,才能不出花屏...
+     */
+      char len[4] = { 0 };
+      SrsStream stm;
+      stm.initialize(len, 4);
+      stm.write_4bytes(su.size);
+      buffer.append(len, 4);
+      buffer.append(su.bytes, su.size);
+    }
+  }
+  // send pps+sps before ipb frames when sps/pps changed.
+  if ((ret = srs_write_h264_sps_pps(context, dts, pts)) != ERROR_SUCCESS) {
+    return ret;
+  }
+  if (buffer.length()){
+    // when sps or pps not sent, ignore the packet.
+    // @see https://github.com/ossrs/srs/issues/203
+    if (!context->h264_sps_pps_sent) {
+      return ERROR_H264_DROP_BEFORE_SPS_PPS;
+    }
+
+    // for IDR frame, the frame is keyframe.
+    SrsCodecVideoAVCFrame frame_type = SrsCodecVideoAVCFrameInterFrame;
+    if (sample.has_idr) {
+      frame_type = SrsCodecVideoAVCFrameKeyFrame;
+    }
+
+    int8_t avc_packet_type = SrsCodecVideoAVCTypeNALU;
+    char* flv = NULL;
+    int nb_flv = 0;
+    if ((ret = context->avc_raw.mux_avc2flv(buffer.bytes(), buffer.length(), 
+      frame_type, avc_packet_type, dts, pts, &flv, &nb_flv)) != ERROR_SUCCESS) {
+      return ret;
+    }
+
+    // the timestamp in rtmp message header is dts.
+    u_int32_t timestamp = dts;
+    return context->GotFrame(SRS_RTMP_TYPE_VIDEO, timestamp, flv, nb_flv);
+  }
+
+  return ERROR_SUCCESS;
+}
+
+extern int srs_flv_write_header2(srs_flv_t flv, bool audio, bool video)
+{
+  // write the file header
+  char header[] = {
+    'F', 'L', 'V',			// FLV file signature
+    0x01,					// FLV file version = 1
+    0,						// Flags - modified later
+    0, 0, 0, 9				// size of the header
+  };
+
+  if (video)	header[4] |= 0x01;
+  if (audio)	header[4] |= 0x04;
+  return srs_flv_write_header(flv, header);
 }
 
 int srs_flv_write_tag(srs_flv_t flv, char type, int32_t time, char* data, int size)

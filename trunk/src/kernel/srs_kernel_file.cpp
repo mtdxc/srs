@@ -160,11 +160,12 @@ int SrsFileWriter::writev(iovec* iov, int iovcnt, ssize_t* pnwrite)
     ssize_t nwrite = 0;
     for (int i = 0; i < iovcnt; i++) {
         iovec* piov = iov + i;
-        ret = _write(fd, piov->iov_base, piov->iov_len);
-        if (ret <=0) {
+        int size = _write(fd, piov->iov_base, piov->iov_len);
+        if (size <= 0) {
+            ret = ERROR_SYSTEM_FILE_WRITE;
             break;
         }
-        nwrite += ret;
+        nwrite += size;
     }
     
     if (pnwrite) {

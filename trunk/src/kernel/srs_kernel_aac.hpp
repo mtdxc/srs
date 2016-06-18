@@ -67,6 +67,7 @@ public:
     /**
     * write audio/video packet.
     * @remark assert data is not NULL.
+    * write aac data from flv format to atds format(.aac)
     */
     virtual int write_audio(int64_t timestamp, char* data, int size);
 };

@@ -355,8 +355,8 @@ int SrsCodecSample::add_sample_unit(char* bytes, int size)
     
     if (nb_sample_units >= SRS_SRS_MAX_CODEC_SAMPLE) {
         ret = ERROR_HLS_DECODE_ERROR;
-        srs_error("hls decode samples error, "
-            "exceed the max count: %d, ret=%d", SRS_SRS_MAX_CODEC_SAMPLE, ret);
+        srs_error("hls decode samples error, exceed the max count: %d, ret=%d", 
+					SRS_SRS_MAX_CODEC_SAMPLE, ret);
         return ret;
     }
     
@@ -559,9 +559,24 @@ int SrsAvcAacCodec::audio_mp3_demux(char* data, int size, SrsCodecSample* sample
 {
     int ret = ERROR_SUCCESS;
 
-    // we always decode aac then mp3.
+    // @see: E.4.2 Audio Tags, video_file_format_spec_v10_1.pdf, page 76
+    int8_t sound_format = data[0];
+    // remove the need for call audio_aac_demux first
+    int8_t sound_type = sound_format & 0x01;
+    int8_t sound_size = (sound_format >> 1) & 0x01;
+    int8_t sound_rate = (sound_format >> 2) & 0x03;
+    sound_format = (sound_format >> 4) & 0x0f;
+
+    audio_codec_id = sound_format;
+    sample->acodec = (SrsCodecAudio)audio_codec_id;
+
+    sample->sound_type = (SrsCodecAudioSoundType)sound_type;
+    sample->sound_rate = (SrsCodecAudioSampleRate)sound_rate;
+    sample->sound_size = (SrsCodecAudioSampleSize)sound_size;
+    // we always decode aac then mp3. so sound format is setted from audio_aac_demux
     srs_assert(sample->acodec == SrsCodecAudioMP3);
-    
+    sample->is_video = false;
+
     // @see: E.4.2 Audio Tags, video_file_format_spec_v10_1.pdf, page 76
     if (!data || size <= 1) {
         srs_trace("no mp3 audio present, ignore it.");
