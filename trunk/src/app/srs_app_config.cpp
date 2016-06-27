@@ -52,7 +52,7 @@ using namespace std;
 using namespace _srs_internal;
 
 // the version to identify the core.
-const char* _srs_version = "XCORE-"RTMP_SIG_SRS_SERVER;
+const char* _srs_version = "XCORE-" RTMP_SIG_SRS_SERVER;
 
 #define SRS_WIKI_URL_LOG "https://github.com/ossrs/srs/wiki/v1_CN_SrsLog"
 
@@ -1496,12 +1496,12 @@ int SrsConfig::parse_argv(int& i, char** argv)
 void SrsConfig::print_help(char** argv)
 {
     printf(
-        RTMP_SIG_SRS_SERVER" "RTMP_SIG_SRS_COPYRIGHT"\n"
-        "License: "RTMP_SIG_SRS_LICENSE"\n"
-        "Primary: "RTMP_SIG_SRS_PRIMARY"\n"
-        "Authors: "RTMP_SIG_SRS_AUTHROS"\n"
-        "Build: "SRS_AUTO_BUILD_DATE" Configuration:"SRS_AUTO_USER_CONFIGURE"\n"
-        "Features:"SRS_AUTO_CONFIGURE"\n""\n"
+        RTMP_SIG_SRS_SERVER " " RTMP_SIG_SRS_COPYRIGHT "\n"
+        "License: " RTMP_SIG_SRS_LICENSE "\n"
+        "Primary: " RTMP_SIG_SRS_PRIMARY "\n"
+        "Authors: " RTMP_SIG_SRS_AUTHROS "\n"
+        "Build: " SRS_AUTO_BUILD_DATE " Configuration:" SRS_AUTO_USER_CONFIGURE "\n"
+        "Features:" SRS_AUTO_CONFIGURE "\n""\n"
         "Usage: %s [-h?vV] [[-t] -c <filename>]\n" 
         "\n"
         "Options:\n"
@@ -1513,14 +1513,14 @@ void SrsConfig::print_help(char** argv)
         "   -p  rtmp-port       : the rtmp port to listen.\n"
         "   -x  http-port       : the http port to listen.\n"
         "\n"
-        RTMP_SIG_SRS_WEB"\n"
-        RTMP_SIG_SRS_URL"\n"
-        "Email: "RTMP_SIG_SRS_EMAIL"\n"
+        RTMP_SIG_SRS_WEB "\n"
+        RTMP_SIG_SRS_URL "\n"
+        "Email: " RTMP_SIG_SRS_EMAIL "\n"
         "\n"
         "For example:\n"
         "   %s -v\n"
-        "   %s -t -c "SRS_CONF_DEFAULT_COFNIG_FILE"\n"
-        "   %s -c "SRS_CONF_DEFAULT_COFNIG_FILE"\n",
+        "   %s -t -c " SRS_CONF_DEFAULT_COFNIG_FILE "\n"
+        "   %s -c " SRS_CONF_DEFAULT_COFNIG_FILE "\n",
         argv[0], argv[0], argv[0], argv[0]);
 }
 

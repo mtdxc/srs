@@ -1541,7 +1541,7 @@ int srs_raw_write_h264_frames(RawContext* context, char* frames, int frames_size
   return ERROR_SUCCESS;
 }
 
-extern int srs_flv_write_header2(srs_flv_t flv, bool audio, bool video)
+int srs_flv_write_header2(srs_flv_t flv, char audio, char video)
 {
   // write the file header
   char header[] = {

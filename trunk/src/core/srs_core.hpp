@@ -146,8 +146,7 @@ struct iovec
   void *iov_base;
   size_t iov_len;
 };
-#define snprintf _snprintf
-
+//#define snprintf _snprintf
 #else
 #include <sys/uio.h>
 #include <inttypes.h>

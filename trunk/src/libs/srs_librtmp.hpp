@@ -509,7 +509,7 @@ extern int srs_flv_read_tag_data(srs_flv_t flv, char* data, int32_t size);
 * @remark, auto write the 4bytes zero previous tag size.
 */
 extern int srs_flv_write_header(srs_flv_t flv, char header[9]);
-extern int srs_flv_write_header2(srs_flv_t flv, bool audio, bool video);
+extern int srs_flv_write_header2(srs_flv_t flv, char audio, char video);
 
 /**
 * write the flv tag to file.

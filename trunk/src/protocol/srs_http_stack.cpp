@@ -177,7 +177,7 @@ int64_t SrsHttpHeader::content_length()
 void SrsHttpHeader::set_content_length(int64_t size)
 {
     char buf[64];
-    snprintf(buf, sizeof(buf), "%"PRId64, size);
+    snprintf(buf, sizeof(buf), "%" PRId64, size);
     set("Content-Length", buf);
 }
 
