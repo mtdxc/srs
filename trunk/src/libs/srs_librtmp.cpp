@@ -1,4 +1,4 @@
-ï»¿/*
+/*
 The MIT License (MIT)
 
 Copyright (c) 2013-2015 SRS(ossrs)
@@ -55,12 +55,15 @@ using namespace std;
 ISrsLog* _srs_log = new ISrsLog();
 ISrsThreadContext* _srs_context = new ISrsThreadContext();
 
+// use this default timeout in us, if user not set.
+#define SRS_SOCKET_DEFAULT_TIMEOUT 30 * 1000 * 1000LL
+
 struct RawListener{
   // use must use srs_freepa(data) to free the data
   virtual int OnGotFrame(char type, u_int32_t timestamp, char* data, int size) = 0;
 };
 
-// å°†è£¸æ•°æ®è½¬æˆæœ¬åº“å†…éƒ¨ä½¿ç”¨çš„åŒ…ç»“æ„
+// ½«ÂãÊı¾İ×ª³É±¾¿âÄÚ²¿Ê¹ÓÃµÄ°ü½á¹¹
 struct RawContext{
   RawContext(RawListener* rl) {
     h264_sps_pps_sent = false;
@@ -135,6 +138,9 @@ struct Context:public RawListener
     SimpleSocketStream* skt;
     int stream_id;
 
+    // user set timeout, in us.
+    int64_t stimeout;
+    int64_t rtimeout;
     // add by caiqm
     RawContext raw;
     virtual int OnGotFrame(char type, u_int32_t timestamp, char* data, int size){
@@ -146,6 +152,7 @@ struct Context:public RawListener
         skt = NULL;
         req = NULL;
         stream_id = 0;
+        rtimeout = stimeout = -1;
     }
     virtual ~Context() {
         srs_freep(req);
@@ -328,14 +335,6 @@ int srs_librtmp_context_resolve_host(Context* context)
 {
     int ret = ERROR_SUCCESS;
     
-    // create socket
-    srs_freep(context->skt);
-    context->skt = new SimpleSocketStream();
-    
-    if ((ret = context->skt->create_socket()) != ERROR_SUCCESS) {
-        return ret;
-    }
-    
     // connect to server:port
     context->ip = srs_dns_resolve(context->host);
     if (context->ip.empty()) {
@@ -386,6 +385,17 @@ srs_rtmp_t srs_rtmp_create(const char* url)
 {
     Context* context = new Context();
     context->url = url;
+
+    // create socket
+    srs_freep(context->skt);
+    context->skt = new SimpleSocketStream();
+
+    if (context->skt->create_socket() != ERROR_SUCCESS) {
+        // free the context and return NULL
+        srs_freep(context);
+        return NULL;
+    }
+    
     return context;
 }
 
@@ -398,7 +408,36 @@ srs_rtmp_t srs_rtmp_create2(const char* url)
     // auto append stream.
     context->url += "/livestream";
     
+    // create socket
+    srs_freep(context->skt);
+    context->skt = new SimpleSocketStream();
+    
+    if (context->skt->create_socket() != ERROR_SUCCESS) {
+        // free the context and return NULL
+        srs_freep(context);
+        return NULL;
+    }
+    
     return context;
+}
+   
+int srs_rtmp_set_timeout(srs_rtmp_t rtmp, int recv_timeout_ms, int send_timeout_ms)
+{
+    int ret = ERROR_SUCCESS;
+
+    if (!rtmp) {
+        return ret;
+    }
+
+    Context* context = (Context*)rtmp;
+    
+    context->stimeout = send_timeout_ms * 1000;
+    context->rtimeout = recv_timeout_ms * 1000;
+
+    context->skt->set_recv_timeout(context->rtimeout);
+    context->skt->set_send_timeout(context->stimeout);
+
+    return ret;
 }
 
 void srs_rtmp_destroy(srs_rtmp_t rtmp)
@@ -456,6 +495,16 @@ int srs_rtmp_connect_server(srs_rtmp_t rtmp)
     
     srs_assert(rtmp != NULL);
     Context* context = (Context*)rtmp;
+    
+    // set timeout if user not set.
+    if (context->stimeout == -1) {
+        context->stimeout = SRS_SOCKET_DEFAULT_TIMEOUT;
+        context->skt->set_send_timeout(context->stimeout);
+    }
+    if (context->rtimeout == -1) {
+        context->rtimeout = SRS_SOCKET_DEFAULT_TIMEOUT;
+        context->skt->set_recv_timeout(context->rtimeout);
+    }
     
     if ((ret = srs_librtmp_context_connect(context)) != ERROR_SUCCESS) {
         return ret;
@@ -1095,12 +1144,20 @@ int srs_write_h264_ipb_frame(RawContext* context,
     
     // 5bits, 7.3.1 NAL unit syntax,
     // H.264-AVC-ISO_IEC_14496-10.pdf, page 44.
-    //  7: SPS, 8: PPS, 5: I Frame, 1: P Frame
-    SrsAvcNaluType nal_unit_type = (SrsAvcNaluType)(frame[0] & 0x1f);
+    //  5: I Frame, 1: P/B Frame
+    // @remark we already group sps/pps to sequence header frame;
+    //      for I/P NALU, we send them in isolate frame, each NALU in a frame;
+    //      for other NALU, for example, AUD/SEI, we just ignore them, because
+    //      AUD used in annexb to split frame, while SEI generally we can ignore it.
+    // TODO: maybe we should group all NALUs split by AUD to a frame.
+    SrsAvcNaluType nut = (SrsAvcNaluType)(frame[0] & 0x1f);
+    if (nut != SrsAvcNaluTypeIDR && nut != SrsAvcNaluTypeNonIDR) {
+        return ret;
+    }
     
     // for IDR frame, the frame is keyframe.
     SrsCodecVideoAVCFrame frame_type = SrsCodecVideoAVCFrameInterFrame;
-    if (nal_unit_type == SrsAvcNaluTypeIDR) {
+    if (nut == SrsAvcNaluTypeIDR) {
         frame_type = SrsCodecVideoAVCFrameKeyFrame;
     }
     
@@ -1167,6 +1224,11 @@ int srs_write_h264_raw_frame(RawContext* context,
     char* frame, int frame_size, u_int32_t dts, u_int32_t pts
 ) {
     int ret = ERROR_SUCCESS;
+    
+    // empty frame.
+    if (frame_size <= 0) {
+        return ret;
+    }
 
     // for sps
     if (context->avc_raw.is_sps(frame, frame_size)) {
@@ -1197,6 +1259,18 @@ int srs_write_h264_raw_frame(RawContext* context,
         context->h264_pps_changed = true;
         context->h264_pps = pps;
         
+        return ret;
+    }
+    
+    // ignore others.
+    // 5bits, 7.3.1 NAL unit syntax,
+    // H.264-AVC-ISO_IEC_14496-10.pdf, page 44.
+    //  7: SPS, 8: PPS, 5: I Frame, 1: P Frame, 9: AUD
+    SrsAvcNaluType nut = (SrsAvcNaluType)(frame[0] & 0x1f);
+    if (nut != SrsAvcNaluTypeSPS && nut != SrsAvcNaluTypePPS
+        && nut != SrsAvcNaluTypeIDR && nut != SrsAvcNaluTypeNonIDR
+        && nut != SrsAvcNaluTypeAccessUnitDelimiter
+    ) {
         return ret;
     }
     
@@ -1496,9 +1570,9 @@ int srs_raw_write_h264_frames(RawContext* context, char* frames, int frames_size
     default:
       break;
     }
-    {/* flvå¿…é¡»åˆæˆä¸€ä¸ªåŒ…å‘é€å¦åˆ™ä¼šå‡ºç°è§£ç é”™è¯¯ï¼Œä½†ç›´æ’­ä»£ç ä¸æ˜¯è¿™ä¹ˆå†™çš„
-     QQæ’­æ”¾å™¨å¥½åƒä¸è¯†åˆ«SrsCodecVideoAVCTypeSequenceHeader(FFmpegå°±è¡Œ!),
-     è¿˜å¿…é¡»æŠŠspså’Œppså†æ¬¡æ‰“åŒ…åˆ°NALä¸­,æ‰èƒ½ä¸å‡ºèŠ±å±...
+    {/* flv±ØĞëºÏ³ÉÒ»¸ö°ü·¢ËÍ·ñÔò»á³öÏÖ½âÂë´íÎó£¬µ«Ö±²¥´úÂë²»ÊÇÕâÃ´Ğ´µÄ
+     QQ²¥·ÅÆ÷ºÃÏñ²»Ê¶±ğSrsCodecVideoAVCTypeSequenceHeader(FFmpeg¾ÍĞĞ!),
+     »¹±ØĞë°ÑspsºÍppsÔÙ´Î´ò°üµ½NALÖĞ,²ÅÄÜ²»³ö»¨ÆÁ...
      */
       char len[4] = { 0 };
       SrsStream stm;

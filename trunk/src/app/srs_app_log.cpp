@@ -76,6 +76,15 @@ int SrsThreadContext::set_id(int v)
     return ov;
 }
 
+void SrsThreadContext::clear_cid()
+{
+    st_thread_t self = st_thread_self();
+    std::map<st_thread_t, int>::iterator it = cache.find(self);
+    if (it != cache.end()) {
+        cache.erase(it);
+    }
+}
+
 // the max size of a line of log.
 #define LOG_MAX_SIZE 4096
 
@@ -378,6 +387,7 @@ void SrsFastLog::write_log(int& fd, char *str_log, int size, int level)
         } else{
             printf("\033[31m%.*s\033[0m", size, str_log);
         }
+        fflush(stdout);
 
         return;
     }
