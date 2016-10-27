@@ -146,7 +146,9 @@ struct iovec
   void *iov_base;
   size_t iov_len;
 };
-//#define snprintf _snprintf
+#if _MSC_VER < 1900
+#define snprintf _snprintf
+#endif
 #else
 #include <sys/uio.h>
 #include <inttypes.h>
@@ -206,12 +208,12 @@ typedef int* sockopt_t;
 * only support the following cpus:
 *      1. i386/amd64/x86_64
 *      2. arm, glibc <= 2.15
-*/
+
 #if !defined(__amd64__) && !defined(__x86_64__) && !defined(__i386__) && !defined(__arm__)
 #error "only support i386/amd64/x86_64/arm cpu"
 #endif
 #if defined(__arm__) && (__GLIBC__ != 2 || __GLIBC_MINOR__ > 15)
 #error "for arm, only support glibc <= 2.15"
 #endif
-
+*/
 #endif

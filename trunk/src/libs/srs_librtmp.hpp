@@ -460,7 +460,6 @@ extern srs_bool srs_h264_startswith_annexb(
 extern srs_flv_t srs_flv_open_read(const char* file);
 extern srs_flv_t srs_flv_open_write(const char* file);
 extern void srs_flv_close(srs_flv_t flv);
-// add by caiqm
 extern int srs_flv2ts(const char* flvPath, const char* dst);
 /**
 * read the flv header. 9bytes header. 

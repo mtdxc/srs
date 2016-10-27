@@ -1113,7 +1113,7 @@ int SrsTsAdaptationField::decode(SrsStream* stream)
     nb_af_reserved = adaption_field_length - (stream->pos() - pos_af);
     stream->skip(nb_af_reserved);
     
-    srs_info("ts: af parsed, discontinuity=%d random=%d priority=%d PCR=%d OPCR=%d slicing=%d private=%d extension=%d/%d pcr=%"PRId64"/%d opcr=%"PRId64"/%d",
+    srs_info("ts: af parsed, discontinuity=%d random=%d priority=%d PCR=%d OPCR=%d slicing=%d private=%d extension=%d/%d pcr=%" PRId64 "/%d opcr=%" PRId64 "/%d",
         discontinuity_indicator, random_access_indicator, elementary_stream_priority_indicator, PCR_flag, OPCR_flag, splicing_point_flag,
         transport_private_data_flag, adaptation_field_extension_flag, adaptation_field_extension_length, program_clock_reference_base, 
         program_clock_reference_extension, original_program_clock_reference_base, original_program_clock_reference_extension);
@@ -1294,7 +1294,7 @@ int SrsTsAdaptationField::encode(SrsStream* stream)
         stream->skip(nb_af_reserved);
     }
     
-    srs_info("ts: af parsed, discontinuity=%d random=%d priority=%d PCR=%d OPCR=%d slicing=%d private=%d extension=%d/%d pcr=%"PRId64"/%d opcr=%"PRId64"/%d",
+    srs_info("ts: af parsed, discontinuity=%d random=%d priority=%d PCR=%d OPCR=%d slicing=%d private=%d extension=%d/%d pcr=%" PRId64 "/%d opcr=%" PRId64 "/%d",
         discontinuity_indicator, random_access_indicator, elementary_stream_priority_indicator, PCR_flag, OPCR_flag, splicing_point_flag,
         transport_private_data_flag, adaptation_field_extension_flag, adaptation_field_extension_length, program_clock_reference_base, 
         program_clock_reference_extension, original_program_clock_reference_base, original_program_clock_reference_extension);
@@ -1534,7 +1534,7 @@ int SrsTsPayloadPES::decode(SrsStream* stream, SrsTsMessage** ppmsg)
 
                 // check sync, the diff of dts and pts should never greater than 1s.
                 if (dts - pts > 90000 || pts - dts > 90000) {
-                    srs_warn("ts: sync dts=%"PRId64", pts=%"PRId64, dts, pts);
+                    srs_warn("ts: sync dts=%" PRId64 ", pts=%" PRId64, dts, pts);
                 }
 
                 // update the dts and pts of message.
@@ -1894,7 +1894,7 @@ int SrsTsPayloadPES::encode(SrsStream* stream)
 
         // check sync, the diff of dts and pts should never greater than 1s.
         if (dts - pts > 90000 || pts - dts > 90000) {
-            srs_warn("ts: sync dts=%"PRId64", pts=%"PRId64, dts, pts);
+            srs_warn("ts: sync dts=%" PRId64 ", pts=%" PRId64, dts, pts);
         }
     }
 
@@ -2730,7 +2730,7 @@ int SrsTSMuxer::write_audio(SrsTsMessage* audio)
 {
     int ret = ERROR_SUCCESS;
 
-    srs_info("hls: write audio pts=%"PRId64", dts=%"PRId64", size=%d", 
+    srs_info("hls: write audio pts=%" PRId64 ", dts=%" PRId64 ", size=%d", 
         audio->pts, audio->dts, audio->PES_packet_length);
     
     if ((ret = context->encode(writer, audio, vcodec, acodec)) != ERROR_SUCCESS) {
@@ -2746,7 +2746,7 @@ int SrsTSMuxer::write_video(SrsTsMessage* video)
 {
     int ret = ERROR_SUCCESS;
 
-    srs_info("hls: write video pts=%"PRId64", dts=%"PRId64", size=%d", 
+    srs_info("hls: write video pts=%" PRId64 ", dts=%" PRId64 ", size=%d",
         video->pts, video->dts, video->PES_packet_length);
     
     if ((ret = context->encode(writer, video, vcodec, acodec)) != ERROR_SUCCESS) {
@@ -3253,14 +3253,14 @@ SrsTsWriter::~SrsTsWriter()
 
 int SrsTsWriter::write_video(int64_t tsp, const char* data, int len, bool bKey)
 {
+  if (!fist_tsp)
+    fist_tsp = tsp;
   SrsTsMessage video;
   video.write_pcr = bKey;
-  video.start_pts = video.dts = video.pts = tsp * 90;
+  video.start_pts = video.dts = video.pts = 90 * tsp;// (tsp - fist_tsp);
   video.sid = SrsTsPESStreamIdVideoCommon;
   // must have 264 nal header 00000001
   video.payload->append(data, len);
-  if (!fist_tsp)
-    fist_tsp = tsp;
   last_tsp = tsp;
   video_frames++;
   return SrsTSMuxer::write_video(&video);
@@ -3268,15 +3268,16 @@ int SrsTsWriter::write_video(int64_t tsp, const char* data, int len, bool bKey)
 
 int SrsTsWriter::write_audio(int64_t tsp, const char* data, int len)
 {
-  //muxer->update_acodec(SrsCodecAudioAAC);
+  if (!fist_tsp)
+    fist_tsp = tsp;
+  update_acodec(SrsCodecAudioAAC);
   SrsTsMessage audio;
   audio.write_pcr = false;
-  audio.dts = audio.pts = audio.start_pts = tsp * 90;
+  audio.dts = audio.pts = audio.start_pts = 90 * tsp;// (tsp - fist_tsp);
   audio.sid = SrsTsPESStreamIdAudioCommon;
   // must have adts header
   audio.payload->append(data, len);
-  if (!fist_tsp)
-    fist_tsp = tsp;
+
   last_tsp = tsp;
   audio_frames++;
   return SrsTSMuxer::write_audio(&audio);
