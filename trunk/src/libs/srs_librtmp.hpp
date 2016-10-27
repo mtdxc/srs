@@ -88,25 +88,38 @@ extern int srs_version_revision();
 // the RTMP handler.
 typedef void* srs_rtmp_t;
 typedef void* srs_amf0_t;
-
+    
 /**
-* create/destroy a rtmp protocol stack.
-* @url rtmp url, for example: 
-*         rtmp://localhost/live/livestream
-*
-* @return a rtmp handler, or NULL if error occured.
-*/
+ * create/destroy a rtmp protocol stack.
+ * @url rtmp url, for example:
+ *         rtmp://localhost/live/livestream
+ * @remark default timeout to 30s if not set by srs_rtmp_set_timeout.
+ *
+ * @return a rtmp handler, or NULL if error occured.
+ */
 extern srs_rtmp_t srs_rtmp_create(const char* url);
 /**
-* create rtmp with url, used for connection specified application.
-* @param url the tcUrl, for exmple:
-*         rtmp://localhost/live
-* @remark this is used to create application connection-oriented,
-*       for example, the bandwidth client used this, no stream specified.
-*
-* @return a rtmp handler, or NULL if error occured.
-*/
+ * create rtmp with url, used for connection specified application.
+ * @param url the tcUrl, for exmple:
+ *         rtmp://localhost/live
+ * @remark this is used to create application connection-oriented,
+ *       for example, the bandwidth client used this, no stream specified.
+ * @remark default timeout to 30s if not set by srs_rtmp_set_timeout.
+ *
+ * @return a rtmp handler, or NULL if error occured.
+ */
 extern srs_rtmp_t srs_rtmp_create2(const char* url);
+/**
+ * set socket timeout
+ * @param recv_timeout_ms the timeout for receiving messages in ms.
+ * @param send_timeout_ms the timeout for sending message in ms.
+ * @remark user can set timeout once srs_rtmp_create/srs_rtmp_create2, 
+ *      or before srs_rtmp_handshake or srs_rtmp_dns_resolve to connect to server.
+ * @remark default timeout to 30s if not set by srs_rtmp_set_timeout.
+ *
+ * @return 0, success; otherswise, failed.
+ */
+extern int srs_rtmp_set_timeout(srs_rtmp_t rtmp, int recv_timeout_ms, int send_timeout_ms);
 /**
 * close and destroy the rtmp stack.
 * @remark, user should never use the rtmp again.
@@ -982,7 +995,7 @@ typedef void* srs_hijack_io_t;
     * set the socket recv timeout.
     * @return 0, success; otherswise, failed.
     */
-    extern void srs_hijack_io_set_recv_timeout(srs_hijack_io_t ctx, int64_t timeout_us);
+    extern int srs_hijack_io_set_recv_timeout(srs_hijack_io_t ctx, int64_t timeout_us);
     /**
     * get the socket recv timeout.
     * @return 0, success; otherswise, failed.
@@ -997,7 +1010,7 @@ typedef void* srs_hijack_io_t;
     * set the socket send timeout.
     * @return 0, success; otherswise, failed.
     */
-    extern void srs_hijack_io_set_send_timeout(srs_hijack_io_t ctx, int64_t timeout_us);
+    extern int srs_hijack_io_set_send_timeout(srs_hijack_io_t ctx, int64_t timeout_us);
     /**
     * get the socket send timeout.
     * @return 0, success; otherswise, failed.

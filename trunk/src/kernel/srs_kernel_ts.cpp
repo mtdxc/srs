@@ -470,6 +470,14 @@ int SrsTsContext::encode_pes(SrsFileWriter* writer, SrsTsMessage* msg, int16_t p
 
             // it's ok to set pcr equals to dts,
             // @see https://github.com/ossrs/srs/issues/311
+            // Fig. 3.18. Program Clock Reference of Digital-Video-and-Audio-Broadcasting-Technology, page 65
+            // In MPEG-2, these are the "Program Clock Refer- ence" (PCR) values which are
+            // nothing else than an up-to-date copy of the STC counter fed into the transport
+            // stream at a certain time. The data stream thus carries an accurate internal
+            // "clock time". All coding and de- coding processes are controlled by this clock
+            // time. To do this, the receiver, i.e. the MPEG decoder, must read out the
+            // "clock time", namely the PCR values, and compare them with its own internal
+            // system clock, that is to say its own 42 bit counter.
             int64_t pcr = write_pcr? msg->dts : -1;
             
             // TODO: FIXME: finger it why use discontinuity of msg.
@@ -2952,18 +2960,19 @@ int SrsTsCache::do_cache_avc(SrsAvcAacCodec* codec, SrsCodecSample* sample)
      *      19, Coded slice of an auxiliary coded picture without partitioning slice_layer_without_partitioning_rbsp( )
      *      20, Coded slice extension slice_layer_extension_rbsp( )
      * the first ts message of apple sample:
-     *      annexb 4B header, 2B aud(nal_unit_type:6)(0x09 0xf0)
-     *      annexb 4B header, 19B sps(nal_unit_type:7)
-     *      annexb 3B header, 4B pps(nal_unit_type:8)
-     *      annexb 3B header, 12B nalu(nal_unit_type:6)
-     *      annexb 3B header, 21B nalu(nal_unit_type:6)
-     *      annexb 3B header, 2762B nalu(nal_unit_type:5)
-     *      annexb 3B header, 3535B nalu(nal_unit_type:5)
+     *      annexb 4B header, 2B aud(nal_unit_type:6)(0x09 0xf0)(AUD)
+     *      annexb 4B header, 19B sps(nal_unit_type:7)(SPS)
+     *      annexb 3B header, 4B pps(nal_unit_type:8)(PPS)
+     *      annexb 3B header, 12B nalu(nal_unit_type:6)(SEI)
+     *      annexb 3B header, 21B nalu(nal_unit_type:6)(SEI)
+     *      annexb 3B header, 2762B nalu(nal_unit_type:5)(IDR)
+     *      annexb 3B header, 3535B nalu(nal_unit_type:5)(IDR)
      * the second ts message of apple ts sample:
-     *      annexb 4B header, 2B aud(nal_unit_type:6)(0x09 0xf0)
-     *      annexb 3B header, 21B nalu(nal_unit_type:6)
-     *      annexb 3B header, 379B nalu(nal_unit_type:1)
-     *      annexb 3B header, 406B nalu(nal_unit_type:1)
+     *      annexb 4B header, 2B aud(nal_unit_type:6)(0x09 0xf0)(AUD)
+     *      annexb 3B header, 21B nalu(nal_unit_type:6)(SEI)
+     *      annexb 3B header, 379B nalu(nal_unit_type:1)(non-IDR,P/B)
+     *      annexb 3B header, 406B nalu(nal_unit_type:1)(non-IDR,P/B)
+     * @remark we use the sequence of apple samples http://ossrs.net/apple-sample/bipbopall.m3u8
      */
     static u_int8_t fresh_nalu_header[] = { 0x00, 0x00, 0x00, 0x01 };
     static u_int8_t cont_nalu_header[] = { 0x00, 0x00, 0x01 };
