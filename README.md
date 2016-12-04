@@ -1,10 +1,12 @@
 #Simple-RTMP-Server
 
+[![CircleCI](https://circleci.com/gh/ossrs/srs/tree/2.0release.svg?style=svg)](https://circleci.com/gh/ossrs/srs/tree/2.0release)
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/ossrs/srs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
 SRS/2.0, [ZhouGuowen][release2]
 
 [![Donation](https://www.paypalobjects.com/webstatic/en_US/btn/btn_donate_92x26.png)](http://www.ossrs.net/srs.release/donation/index.html)
 [![Paypal](https://www.paypalobjects.com/webstatic/en_US/btn/btn_donate_pp_142x27.png)](http://www.ossrs.net/srs.release/donation/paypal.html)
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/ossrs/srs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![LinkedIn](http://s.c.lnkd.licdn.com/scds/common/u/img/webpromo/btn_liprofile_blue_80x15.png)](http://cn.linkedin.com/in/winlinvip)
 
 SRS定位是运营级的互联网直播服务器集群，追求更好的概念完整性和最简单实现的代码。<br/>
@@ -202,7 +204,7 @@ Supported operating systems and hardware:
 1. Stable [1.0release branch][branch1].
 1. Support publish h264 raw stream([CN][v2_CN_SrsLibrtmp2], [EN][v2_EN_SrsLibrtmp2]) by srs-librtmp.
 1. Support [6k+ clients][bug #194], 3Gbps per process.
-1. Suppport [English wiki][v1_EN_Home).
+1. Suppport [English wiki][v1_EN_Home].
 1. Research and simplify st, [bug #182][bug #182].
 1. Support compile [srs-librtmp on windows][srs-librtmp], [bug #213][bug #213].
 1. Support [10k+ clients][bug #251], 4Gbps per process.
@@ -309,6 +311,7 @@ Remark:
 
 ## Releases
 
+* 2016-11-09, [Release v2.0-b2][r2.0b2], 2.0 beta2, 2.0.221, 86691 lines.
 * 2016-09-09, [Release v2.0-b1][r2.0b1], 2.0 beta1, 2.0.215, 89941 lines.
 * 2016-08-06, [Release v2.0-b0][r2.0b0], 2.0 beta0, 2.0.210, 89704 lines.
 * 2015-12-23, [Release v2.0-a3][r2.0a3], 2.0 alpha3, 2.0.205, 89544 lines.
@@ -341,6 +344,14 @@ Remark:
 
 ## History
 
+* <strong>v2.0, 2016-11-09, [2.0 beta2(2.0.221)][r2.0b2] released. 86691 lines.</strong>
+* v2.0, 2016-11-05, fix #654, crash when source cleanup for edge. 2.0.221
+* v2.0, 2016-10-26, fix #666, crash when source cleanup for http-flv. 2.0.220
+* v2.0, 2016-10-10, fix #661, close fd after thread stopped. 2.0.219
+* v2.0, 2016-09-23, support asprocess for oryx. 2.0.218
+* v2.0, 2016-09-23, support change work_dir for oryx.
+* v2.0, 2016-09-15, fix #640, typo for rtmp type. 2.0.217
+* v2.0, 2016-09-12, fix fast stream error bug. 2.0.216
 * <strong>v2.0, 2016-09-09, [2.0 beta1(2.0.215)][r2.0b1] released. 89941 lines.</strong>
 * v2.0, 2016-09-09, refine librtmp comments about NALUs. 2.0.215
 * v2.0, 2016-09-05, fix memory leak at source. 2.0.214
@@ -977,6 +988,10 @@ Winlin
 [v1_EN_Edge]: https://github.com/ossrs/srs/wiki/v1_EN_Edge
 [v1_CN_RtmpUrlVhost]: https://github.com/ossrs/srs/wiki/v1_CN_RtmpUrlVhost
 [v1_EN_RtmpUrlVhost]: https://github.com/ossrs/srs/wiki/v1_EN_RtmpUrlVhost
+[v1_CN_RTMPHandshake]: https://github.com/ossrs/srs/wiki/v1_CN_RTMPHandshake
+[v1_EN_RTMPHandshake]: https://github.com/ossrs/srs/wiki/v1_EN_RTMPHandshake
+[v1_CN_HTTPServer]: https://github.com/ossrs/srs/wiki/v1_CN_HTTPServer
+[v1_EN_HTTPServer]: https://github.com/ossrs/srs/wiki/v1_EN_HTTPServer
 [v1_CN_DeliveryHLS]: https://github.com/ossrs/srs/wiki/v1_CN_DeliveryHLS
 [v1_EN_DeliveryHLS]: https://github.com/ossrs/srs/wiki/v1_EN_DeliveryHLS
 [v1_CN_DeliveryHLS2]: https://github.com/ossrs/srs/wiki/v1_CN_DeliveryHLS#hlsaudioonly
@@ -1244,6 +1259,7 @@ Winlin
 
 [exo #828]: https://github.com/google/ExoPlayer/pull/828
 
+[r2.0b2]: https://github.com/ossrs/srs/releases/tag/v2.0-b2
 [r2.0b1]: https://github.com/ossrs/srs/releases/tag/v2.0-b1
 [r2.0b0]: https://github.com/ossrs/srs/releases/tag/v2.0-b0
 [r2.0a3]: https://github.com/ossrs/srs/releases/tag/v2.0-a3
@@ -1284,6 +1300,6 @@ Winlin
 [branch2]: https://github.com/ossrs/srs/tree/2.0release
 [release2]: https://github.com/ossrs/srs/wiki/v1_CN_Product#release20
 [release3]: https://github.com/ossrs/srs/wiki/v1_CN_Product#release30
-[centos0]: http://winlinvip.github.io/srs.release/releases/files/SRS-CentOS6-x86_64-2.0.215.zip
-[centos1]: http://www.ossrs.net/srs.release/releases/files/SRS-CentOS6-x86_64-2.0.215.zip
+[centos0]: http://winlinvip.github.io/srs.release/releases/files/SRS-CentOS6-x86_64-2.0.221.zip
+[centos1]: http://www.ossrs.net/srs.release/releases/files/SRS-CentOS6-x86_64-2.0.221.zip
 

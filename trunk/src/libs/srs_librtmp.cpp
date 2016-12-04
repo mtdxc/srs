@@ -153,6 +153,7 @@ struct Context:public RawListener
         req = NULL;
         stream_id = 0;
         rtimeout = stimeout = -1;
+        rtimeout = stimeout = -1;
     }
     virtual ~Context() {
         srs_freep(req);
@@ -1988,6 +1989,9 @@ int64_t srs_utils_send_bytes(srs_rtmp_t rtmp)
 {
     srs_assert(rtmp != NULL);
     Context* context = (Context*)rtmp;
+    if (!context->rtmp) {
+        return 0;
+    }
     return context->rtmp->get_send_bytes();
 }
 
@@ -1995,6 +1999,9 @@ int64_t srs_utils_recv_bytes(srs_rtmp_t rtmp)
 {
     srs_assert(rtmp != NULL);
     Context* context = (Context*)rtmp;
+    if (!context->rtmp) {
+        return 0;
+    }
     return context->rtmp->get_recv_bytes();
 }
 

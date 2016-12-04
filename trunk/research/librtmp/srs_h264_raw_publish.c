@@ -94,13 +94,14 @@ int main(int argc, char** argv)
         exit(-1);
     }
     srs_rtmp_t rtmp = NULL;
+    char * h264_raw = NULL;
     const char* raw_file = argv[1];
     const char* rtmp_url = argv[2];
     // @remark, the dts and pts if read from device, for instance, the encode lib,
     // so we assume the fps is 25, and each h264 frame is 1000ms/25fps=40ms/f.
     double fps = atof(argv[3]);
     srs_human_trace("raw_file=%s, rtmp_url=%s, fps=%.2f", raw_file, rtmp_url, fps);
-    char* h264_raw = NULL;
+    
     // open file
     int raw_fd = open(raw_file, O_RDONLY);
     if (raw_fd < 0) {
