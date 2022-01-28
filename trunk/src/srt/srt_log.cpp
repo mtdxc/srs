@@ -8,12 +8,10 @@ LOGGER_LEVEL s_log_level = SRT_LOGGER_TRACE_LEVEL;
 static char* srt_log_buffer = new char[LOGGER_BUFFER_SIZE];
 
 void snprintbuffer(char* buffer, size_t size, const char* fmt, ...) {
-    va_list ap;
- 
+    va_list ap; 
     va_start(ap, fmt);
     vsnprintf(buffer, size, fmt, ap);
     va_end(ap);
-
     return;
 }
 

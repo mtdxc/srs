@@ -39,9 +39,7 @@ inline int string_split(const std::string& input_str, const std::string& split_s
 
 inline std::string string_lower(const std::string input_str) {
     std::string output_str(input_str);
-
     std::transform(input_str.begin(), input_str.end(), output_str.begin(), ::tolower);
-
     return output_str;
 }
 

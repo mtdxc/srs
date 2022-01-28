@@ -57,7 +57,6 @@ bool is_streamid_valid(const std::string& streamid) {
 
 bool get_key_value(const std::string& info, std::string& key, std::string& value) {
     size_t pos = info.find("=");
-
     if (pos == info.npos) {
         return false;
     }

@@ -40,7 +40,7 @@ srs_error_t srt2rtmp::init() {
     if (_trd_ptr.get() != nullptr) {
         return srs_error_wrap(err, "don't start thread again");
     }
-
+    // thread call this::cycle() function
     _trd_ptr = std::make_shared<SrsSTCoroutine>("srt2rtmp", this);
 
     if ((err = _trd_ptr->start()) != srs_success) {
@@ -109,11 +109,11 @@ void srt2rtmp::check_rtmp_alive() {
     const int64_t CHECK_INTERVAL    = 5*1000;
     const int64_t ALIVE_TIMEOUT_MAX = 5*1000;
 
+    int64_t timenow_ms = now_ms();
     if (_lastcheck_ts == 0) {
-        _lastcheck_ts = now_ms();
+        _lastcheck_ts = timenow_ms;
         return;
     }
-    int64_t timenow_ms = now_ms();
 
     if ((timenow_ms - _lastcheck_ts) > CHECK_INTERVAL) {
         _lastcheck_ts = timenow_ms;
@@ -249,10 +249,9 @@ rtmp_client::rtmp_client(std::string key_path):_key_path(key_path)
     _ts_demux_ptr = std::make_shared<ts_demux>();
     _avc_ptr    = std::make_shared<SrsRawH264Stream>();
     _aac_ptr    = std::make_shared<SrsRawAacStream>();
+
     std::vector<std::string> ret_vec;
-
     string_split(key_path, "/", ret_vec);
-
     if (ret_vec.size() >= 3) {
         _vhost = ret_vec[0];
         _appname = ret_vec[1];
@@ -263,10 +262,9 @@ rtmp_client::rtmp_client(std::string key_path):_key_path(key_path)
         _streamname = ret_vec[1]; 
     }
 
-    std::vector<std::string> ip_ports = _srs_config->get_listens();
     int port = 0;
     std::string ip;
-
+    std::vector<std::string> ip_ports = _srs_config->get_listens();
     for (auto item : ip_ports) {
         srs_parse_endpoint(item, ip, port);
         if (port != 0) {

@@ -40,14 +40,11 @@ srt_handle::~srt_handle() {
 }
 
 void srt_handle::debug_statics(SRTSOCKET srtsocket, const std::string& streamid) {
-    SRT_TRACEBSTATS mon;
-    srt_bstats(srtsocket, &mon, 1);
-    std::ostringstream output;
-    long long now_ul = now_ms();
-
     if (!MONITOR_STATICS_ENABLE) {
         return;
     }
+
+    long long now_ul = now_ms();
     if (_last_timestamp == 0) {
         _last_timestamp = now_ul;
         return;
@@ -57,6 +54,9 @@ void srt_handle::debug_statics(SRTSOCKET srtsocket, const std::string& streamid)
         return;
     }
     _last_timestamp = now_ul;
+    SRT_TRACEBSTATS mon;
+    srt_bstats(srtsocket, &mon, 1);
+    std::ostringstream output;
     output << "======= SRT STATS: sid=" << streamid << std::endl;
     output << "PACKETS     SENT: " << std::setw(11) << mon.pktSent            << "  RECEIVED:   " << std::setw(11) << mon.pktRecv              << std::endl;
     output << "LOST PKT    SENT: " << std::setw(11) << mon.pktSndLoss         << "  RECEIVED:   " << std::setw(11) << mon.pktRcvLoss           << std::endl;
@@ -75,7 +75,7 @@ void srt_handle::debug_statics(SRTSOCKET srtsocket, const std::string& streamid)
 
 void srt_handle::add_new_puller(SRT_CONN_PTR conn_ptr, std::string stream_id) {
     _conn_map.insert(std::make_pair(conn_ptr->get_conn(), conn_ptr));
-
+    // _streamid_map[stream_id][conn_ptr->get_conn()] = conn_ptr;
     auto iter = _streamid_map.find(stream_id);
     if (iter == _streamid_map.end()) {
         std::unordered_map<SRTSOCKET, SRT_CONN_PTR> srtsocket_map;
@@ -124,14 +124,10 @@ void srt_handle::close_pull_conn(SRTSOCKET srtsocket, std::string stream_id) {
 
 SRT_CONN_PTR srt_handle::get_srt_conn(SRTSOCKET conn_srt_socket) {
     SRT_CONN_PTR ret_conn;
-
     auto iter = _conn_map.find(conn_srt_socket);
-    if (iter == _conn_map.end()) {
-        return ret_conn;
+    if (iter != _conn_map.end()) {
+        ret_conn = iter->second;
     }
-
-    ret_conn = iter->second;
-
     return ret_conn;
 }
 
@@ -180,11 +176,7 @@ void srt_handle::add_newconn(SRT_CONN_PTR conn_ptr, int events) {
 }
 
 void srt_handle::handle_push_data(SRT_SOCKSTATUS status, const std::string& path, const std::string& subpath, SRTSOCKET conn_fd) {
-    SRT_CONN_PTR srt_conn_ptr;
-    unsigned char data[DEF_DATA_SIZE];
-    int ret;
-    srt_conn_ptr = get_srt_conn(conn_fd);
-
+    SRT_CONN_PTR srt_conn_ptr = get_srt_conn(conn_fd);
     if (!srt_conn_ptr) {
         srt_log_error("handle_push_data fd:%d fail to find srt connection.", conn_fd);
         return;
@@ -196,7 +188,8 @@ void srt_handle::handle_push_data(SRT_SOCKSTATUS status, const std::string& path
         return;
     }
 
-    ret = srt_conn_ptr->read(data, DEF_DATA_SIZE);
+    unsigned char data[DEF_DATA_SIZE];
+    int ret = srt_conn_ptr->read(data, DEF_DATA_SIZE);
     if (ret <= 0) {
         srt_log_error("handle_push_data srt connect read error:%d, fd:%d", ret, conn_fd);
         close_push_conn(conn_fd);
@@ -306,7 +299,6 @@ void srt_handle::check_alive() {
 
 void srt_handle::close_push_conn(SRTSOCKET srtsocket) {
     auto iter = _conn_map.find(srtsocket);
-
     if (iter != _conn_map.end()) {
         SRT_CONN_PTR conn_ptr = iter->second;
         auto push_iter = _push_conn_map.find(conn_ptr->get_path());
